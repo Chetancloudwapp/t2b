@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Fit For a Legend </title>
+    <title>T2B</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
     <link rel="stylesheet" href="{{ asset('admin/plugins/fontawesome-free/css/all.min.css')}}">
     <link rel="stylesheet" href="{{ asset('admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
@@ -15,9 +15,9 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="card card-outline card-primary">
-            <div class="card-header text-center"> <a style="font-weight: 800; font-size: 32px;" href="index2.html" class="h1"><strong>T2B</strong></a></div>
+            <div class="card-header text-center"> <a style="font-weight: 800; font-size: 32px;" href="{{ url('admin/login')}}" class="h1"><strong>T2B Admin</strong></a></div>
             <div class="card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+                {{-- <p class="login-box-msg">Sign in to start your session</p> --}}
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -50,17 +50,17 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <div class="icheck-primary">
+                        {{-- <div class="icheck-primary">
                           <input type="checkbox" id="remember" name="remember" @if(isset($_COOKIE["email"])) checked="" @endif>
                           <label for="remember">
                             Remember Me
                           </label>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-block">Sign In</button> </div>
                     </form>
-                    <h6 class="forgot_sec"> <a href="">Forgot Password?</a> </h6>
+                    {{-- <h6 class="forgot_sec"> <a href="">Forgot Password?</a> </h6> --}}
                 </form>
             </div>
         </div>

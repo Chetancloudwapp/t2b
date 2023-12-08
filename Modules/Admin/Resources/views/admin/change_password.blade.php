@@ -42,10 +42,10 @@
                             <form action="{{ url('admin/change_password')}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
-                                    <div class="form-group"> 
+                                    {{-- <div class="form-group"> 
                                         <label for="admin_email">Email</label> 
                                         <input class="form-control" id="admin_email" value="{{ Auth::guard('admin')->user()->email}}" readonly=""> 
-                                    </div>
+                                    </div> --}}
                                     <div class="form-group"> 
                                         <label for="current_pwd">Old Password</label> 
                                         <input type="password" class="form-control" id="current_pwd" name="current_pwd" placeholder="Enter old password"><span id="vefiryCurrentPwd"></span>
