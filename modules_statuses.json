@@ -1,0 +1,6 @@
+{
+    "Admin": true,
+    "CreateCategoriesTable": true,
+    "Subcategory": true,
+    "Vendor": true
+}

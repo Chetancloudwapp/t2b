@@ -1,0 +1,23 @@
+[22-Nov-2023 05:59:21 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 262144 bytes) in /home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 878
+[22-Nov-2023 06:01:06 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 20480 bytes) in /home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasRelationships.php on line 793
+[22-Nov-2023 06:40:35 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 262144 bytes) in /home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 878
+[22-Nov-2023 06:40:45 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 20480 bytes) in /home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasRelationships.php on line 793
+[22-Nov-2023 07:52:18 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 262144 bytes) in /home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php on line 92
+[22-Nov-2023 07:52:25 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 262144 bytes) in /home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php on line 92
+[22-Nov-2023 12:05:49 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 98570240 bytes) in /home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/app/Http/Controllers/front/ProductsWebController.php on line 55
+[22-Nov-2023 12:07:39 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 98570240 bytes) in /home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/app/Http/Controllers/front/ProductsWebController.php on line 55
+[22-Nov-2023 12:08:10 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 98570240 bytes) in /home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/app/Http/Controllers/front/ProductsWebController.php on line 55
+[22-Nov-2023 12:08:13 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 98570240 bytes) in /home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/app/Http/Controllers/front/ProductsWebController.php on line 55
+[28-Nov-2023 08:53:00 UTC] PHP Warning:  require(/home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/public/index.php on line 34
+[28-Nov-2023 08:53:00 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/public/../vendor/autoload.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/public/index.php:34
+Stack trace:
+#0 /home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/index.php(21): require_once()
+#1 {main}
+  thrown in /home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/public/index.php on line 34
+[28-Nov-2023 08:53:07 UTC] PHP Warning:  require(/home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/public/index.php on line 34
+[28-Nov-2023 08:53:07 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/public/../vendor/autoload.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/public/index.php:34
+Stack trace:
+#0 /home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/index.php(21): require_once()
+#1 {main}
+  thrown in /home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/public/index.php on line 34
+[06-Dec-2023 06:36:45 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 98570240 bytes) in /home/aknoknqq/dk.mobidudes.in/CK/fitforalegend/app/Http/Controllers/front/ProductsWebController.php on line 37
