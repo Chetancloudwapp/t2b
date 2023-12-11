@@ -13,6 +13,15 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/admin', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/admin', function (Request $request) {
+//     return $request->user();
+// });
+
+// registrer user route
+Route::post('register_user', 'UserApiController@RegisterUser');
+
+// login user route
+Route::post('login_user', 'UserApiController@LoginUser');
+
+// logout user route
+Route::post('logout_user', 'UserApiController@LogoutUser');
