@@ -23,5 +23,14 @@ Route::post('register_user', 'UserApiController@RegisterUser');
 // login user route
 Route::post('login_user', 'UserApiController@LoginUser');
 
+Route::group(['middleware'=>['auth:api']], function () {
+
 // logout user route
 Route::post('logout_user', 'UserApiController@LogoutUser');
+
+// user Detail route
+Route::get('user_detail', 'UserApiController@UserDetail');
+
+// update profile route
+Route::post('user_profile_update', 'UserApiController@UserProfileUpdate');
+});
