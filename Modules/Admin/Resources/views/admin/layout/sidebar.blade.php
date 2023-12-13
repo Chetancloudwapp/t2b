@@ -56,6 +56,11 @@
                     </ul>
                 </li>
                 <li class="nav-item"> 
+                    <a href="{{ url('admin/language')}}" class="nav-link {{ Request::is('admin/language') || Request::is('admin/language/add') ? 'active' : ''}}"> <i class="fa-solid fa-language"></i>&nbsp;&nbsp;
+                        <p>Languages</p>
+                    </a> 
+                </li>
+                <li class="nav-item"> 
                     <a href="{{ url('admin/logout')}}" class="nav-link"> <i class="nav-icon fas fa-th"></i>
                         <p> Logout </p>
                     </a> 

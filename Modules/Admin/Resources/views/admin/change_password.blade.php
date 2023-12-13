@@ -23,21 +23,27 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            @if(Session::has('success_message'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <strong>Success:</strong> {{ Session::get('success_message')}}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                            <a href="{{ url('admin/dashboard')}}">
+                                <button onClick="back();"
+                                    class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger"
+                                    data-modal="modal-13" style="float: right"> <i class="ti-control-backward m-r-5"></i> Back
                                 </button>
-                            </div>
+                            </a>
+                            @if(Session::has('success_message'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>Success:</strong> {{ Session::get('success_message')}}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
                             @endif
                             @if(Session::has('error_message'))
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>Error:</strong> {{ Session::get('error_message')}}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>Error:</strong> {{ Session::get('error_message')}}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
                             @endif
                             <form action="{{ url('admin/change_password')}}" method="post" enctype="multipart/form-data">
                                 @csrf
@@ -48,15 +54,15 @@
                                     </div> --}}
                                     <div class="form-group"> 
                                         <label for="current_pwd">Old Password</label> 
-                                        <input type="password" class="form-control" id="current_pwd" name="current_pwd" placeholder="Enter old password"><span id="vefiryCurrentPwd"></span>
+                                        <input type="password" class="form-control" id="current_pwd" name="current_pwd" required="" placeholder="Enter old password"><span id="vefiryCurrentPwd"></span>
                                     </div>
                                     <div class="form-group"> 
                                         <label for="new_pwd">New Password</label> 
-                                        <input type="password" class="form-control" id="new_pwd" name="new_pwd" placeholder="Enter new password"> 
+                                        <input type="password" class="form-control" id="new_pwd" name="new_pwd" required="" placeholder="Enter new password"> 
                                     </div>
                                     <div class="form-group"> 
                                         <label for="confirm_pwd">Confirm Password</label> 
-                                        <input type="password" class="form-control" id="confirm_pwd" name="confirm_pwd" placeholder="Enter confirm password"> 
+                                        <input type="password" class="form-control" id="confirm_pwd" name="confirm_pwd" required="" placeholder="Enter confirm password"> 
                                     </div>
                                 </div>
                                 <div class="card-footer"> <button type="submit" class="btn btn-primary">Update Password</button> </div>

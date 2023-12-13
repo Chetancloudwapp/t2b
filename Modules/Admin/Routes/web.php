@@ -23,6 +23,11 @@ Route::prefix('admin')->group(function() {
         Route::match(['get','post'], '/check_current_password', 'AdminController@CheckCurrentPassword');
         Route::match(['get','post'], '/change_password', 'AdminController@ChangePassword');
         Route::get('logout', 'AdminController@logout');
+
+        Route::match(['get','post'], '/language', 'LanguageController@index');
+        Route::match(['get','post'], '/language/add', 'LanguageController@addLanguage');
+        Route::match(['get','post'], '/language/edit/{id}', 'LanguageController@editLanguage');
+        Route::match(['get','post'], '/language/delete/{id?}', 'LanguageController@destroy');
     });
 });
 
