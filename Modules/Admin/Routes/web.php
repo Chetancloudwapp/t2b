@@ -24,10 +24,21 @@ Route::prefix('admin')->group(function() {
         Route::match(['get','post'], '/change_password', 'AdminController@ChangePassword');
         Route::get('logout', 'AdminController@logout');
 
+        // language route
         Route::match(['get','post'], '/language', 'LanguageController@index');
         Route::match(['get','post'], '/language/add', 'LanguageController@addLanguage');
         Route::match(['get','post'], '/language/edit/{id}', 'LanguageController@editLanguage');
         Route::match(['get','post'], '/language/delete/{id?}', 'LanguageController@destroy');
+
+        // user route
+        Route::match(['get','post'], '/user', 'UserController@index');
+        Route::match(['get', 'post'], '/user/add', 'UserController@addUser');
+
+        // get countries route
+        Route::match(['get','post'], '/countries', 'CountryController@index');
+
+        // country status
+        Route::post('/update-country-status', 'CountryController@updateCountryStatus');
     });
 });
 

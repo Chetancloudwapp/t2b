@@ -61,6 +61,16 @@
                     </a> 
                 </li>
                 <li class="nav-item"> 
+                    <a href="{{ url('admin/user')}}" class="nav-link {{ Request::is('admin/user') || Request::is('admin/user/add') ? 'active' : ''}}"> <i class="fa-solid fa-user"></i>&nbsp;&nbsp;
+                        <p>User</p>
+                    </a> 
+                </li>
+                <li class="nav-item"> 
+                    <a href="{{ url('admin/countries')}}" class="nav-link {{ Request::is('admin/countries') ? 'active' : ''}}"> <i class="fa-solid fa-globe"></i>&nbsp;&nbsp;
+                        <p>Countries</p>
+                    </a> 
+                </li>
+                <li class="nav-item"> 
                     <a href="{{ url('admin/logout')}}" class="nav-link"> <i class="nav-icon fas fa-th"></i>
                         <p> Logout </p>
                     </a> 

@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Country;
+use Modules\Admin\Entities\Language;
 use App\Models\User;
 use Validator;
 use Hash;
@@ -142,6 +143,7 @@ class AuthController extends Controller
                 // create token 
                 $token = $user->createToken('t2b')->accessToken;
                 $user['token'] = $token;
+                $user['image'] = '/public/uploads/userimage/'.$user->image;
     
                 // casting all the data 
                 $user = $this->allString($user);
@@ -185,6 +187,7 @@ class AuthController extends Controller
     {
        $user = Auth::user();
 
+       $user = $this->allString($user);
        return response()->json([
            "status" => true,
            "message" => "User Detail Fetch Successfully!",
@@ -214,6 +217,9 @@ class AuthController extends Controller
         // Update the user profile
         $user = auth()->user();
         $user->name = $request->name;
+        $user->country_code = $request->country_code;
+        $user->phone_number = $request->phone_number;
+        $user->company_name = $request->company_name;
         // $user->email = $request->email;
         $user->save();
 
@@ -224,13 +230,17 @@ class AuthController extends Controller
         ]);
     }
 
+    // get countries 
     public function getCountry()
     {
         $output = [];
         $output['status'] = false;
         $output['status_code'] = 422;
         $output['message'] = "Something Went Wrong";
-        $output['countries']  = "";
+        $output['data']  = "";
+
+        $data['countries'] = "";
+        $data['languages'] = "";
 
         $get_data = [];
         $get_countries = Country::get();
@@ -246,19 +256,26 @@ class AuthController extends Controller
                 $countryArr['emoji'] = $value['emoji'];
                 $get_data[] = $countryArr;
             }
-            // $data['countries'] = $get_data;
+            $data['countries'] = $get_data;
 
-            // // $language 
-            // $get_language = [];
-            // $get_lang = Language::where('status','Active')->get();
-            // if(!$get_lang->isEmpty()){
-            //     foreach($get_lang as $key => $value)
-            // }
+            // $language 
+            $get_language = [];
+            $get_lang = Language::where('status','Active')->get();
+            if(!$get_lang->isEmpty()){
+                foreach($get_lang as $key => $value){
+                    $languageArr = [];
+                    $languageArr['id'] = $value['id'];
+                    $languageArr['name'] = $value['name'];
+                    $languageArr['image'] = $value['image'] !='' ? asset('uploads/languages/'.$value['image']) : asset('uploads/placeholder/placeholder.jpg');
+                    $get_language[] = $languageArr;
+                }
+                $data['languages']= $get_language;
+            }
 
             $output['status'] = true;
             $output['status_code'] = 200;
             $output['message'] = "Data Fetch successfully!";
-            $output['countries'] = $get_data;
+            $output['data'] = $data;
         }
         return json_encode($output);
     }

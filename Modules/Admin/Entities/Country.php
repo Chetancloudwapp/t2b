@@ -9,7 +9,7 @@ class Country extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = ['is_show'];
     
     protected static function newFactory()
     {
