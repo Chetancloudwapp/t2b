@@ -61,7 +61,7 @@
                     </a> 
                 </li>
                 <li class="nav-item"> 
-                    <a href="{{ url('admin/user')}}" class="nav-link {{ Request::is('admin/user') || Request::is('admin/user/add') ? 'active' : ''}}"> <i class="fa-solid fa-user"></i>&nbsp;&nbsp;
+                    <a href="{{ url('admin/user')}}" class="nav-link {{ Request::is('admin/user') || Request::is('admin/user/add') || Request::is('admin/user/edit/{id}') ? 'active' : ''}}"> <i class="fa-solid fa-user"></i>&nbsp;&nbsp;
                         <p>User</p>
                     </a> 
                 </li>
@@ -71,7 +71,12 @@
                     </a> 
                 </li>
                 <li class="nav-item"> 
-                    <a href="{{ url('admin/logout')}}" class="nav-link"> <i class="nav-icon fas fa-th"></i>
+                    <a href="{{ url('admin/region')}}" class="nav-link {{ Request::is('admin/region') ? 'active' : ''}}"> <i class="fa-solid fa-earth-asia"></i>&nbsp;&nbsp;
+                        <p>Region</p>
+                    </a> 
+                </li>
+                <li class="nav-item"> 
+                    <a href="{{ url('admin/logout')}}" class="nav-link"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;
                         <p> Logout </p>
                     </a> 
                 </li>

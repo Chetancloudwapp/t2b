@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CommonController;
 
 
 /*
@@ -23,7 +24,12 @@ use App\Http\Controllers\Api\AuthController;
 // Unauthorized route
 Route::post('/register_user', [AuthController::class, 'RegisterUser']);
 Route::post('/login_user', [AuthController::class, 'LoginUser']);
-Route::get('/home', [AuthController::class, 'getCountry']);
+
+// country listing
+Route::get('/country_listing', [CommonController::class, 'getCountry']);
+
+// language listing
+Route::get('/language', [CommonController::class, 'getLanguages']);
 
 Route::group(['middleware'=>['auth:api']], function () {
     

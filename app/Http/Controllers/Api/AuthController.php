@@ -8,8 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Models\Country;
 use Modules\Admin\Entities\Language;
+use Modules\Admin\Entities\Country;
+use Modules\Admin\Entities\Region;
 use App\Models\User;
 use Validator;
 use Hash;
@@ -46,17 +47,16 @@ class AuthController extends Controller
 
         if($request->isMethod('post')){
             $userData = $request->input();
-            // echo "<pre>"; print_r($userData); die;
             $rules = [
                 "name"         => "required|string|max:255",
                 "email"        => "required|email|unique:users",
                 "country_code" => "required",
                 "phone_number" => "required",
                 "company_name" => "required|string|max:255",
+                "country"      => "required|integer",
+                "region"       => "required|integer",
                 "password"     => "required|min:4|max:6",
                 "confirm_password" => "required|same:password",
-                "country"      => "required",
-                "region"       => "required",
                 "fcm_token"    => "required",
                 "device_id"    => "required",
                 "device_type"  => "required",
@@ -107,6 +107,7 @@ class AuthController extends Controller
 
                 return response()->json([
                     'status' => true,
+                    'status_code' => 200,
                     'message' => "User Register Successfully!",
                     'data' => $user,
                 ],201);
@@ -135,6 +136,7 @@ class AuthController extends Controller
             422,);
         }
 
+        // check the user with Auth
         if (Auth::attempt(['email' => $userData['email'], 'password' => $userData['password']])) {
 
             // user exists
@@ -143,12 +145,13 @@ class AuthController extends Controller
                 // create token 
                 $token = $user->createToken('t2b')->accessToken;
                 $user['token'] = $token;
-                $user['image'] = '/public/uploads/userimage/'.$user->image;
+                $user['image'] = url('uploads/userimage/'.$user['image']);
     
                 // casting all the data 
                 $user = $this->allString($user);
                 return response()->json([
                     'status' => true,
+                    'status_code' => 200,
                     'message' => 'User Login Successfully!',
                     'data'   => $user,
                 ], 201);
@@ -179,17 +182,34 @@ class AuthController extends Controller
         $user = Auth::user();
         $user->token()->revoke();
         $message = "User Logout Successfully!";
-        return response()->json(['status'=>true, 'message'=> $message],202);
+        return response()->json([
+            'status'=>true, 
+            'status_code'=>200, 
+            'message'=> $message]);
     }
 
     /* --- User Detail Api --- */
     public function UserDetail(Request $request)
     {
        $user = Auth::user();
+    //    return $user;
+       $user['image'] = url('uploads/userimage/'.$user['image']);
+
+       $country = Country::select('id','name')->where('id', $user->country_id)->first();
+    //    return $country;
+       if($country){
+           $user['country_name'] = $country->name;
+       }
+
+       $region = Region::select('id', 'name')->where('id', $user->region)->first();
+       if($region){
+           $user['region_name'] = $region->name;
+       }
 
        $user = $this->allString($user);
        return response()->json([
            "status" => true,
+           "status_code" => 200,
            "message" => "User Detail Fetch Successfully!",
            "data" => $user
        ]);
@@ -222,62 +242,16 @@ class AuthController extends Controller
         $user->company_name = $request->company_name;
         // $user->email = $request->email;
         $user->save();
+        $user['image'] = url('uploads/userimage/'.$user['image']);
+
+        // Typecast user data 
+        $user = $this->allString($user);
 
         return response()->json([
             'status' => true,
+            'status_code' => 200,
             'message' => 'Profile updated successfully',
             'data'   => $user,
         ]);
     }
-
-    // get countries 
-    public function getCountry()
-    {
-        $output = [];
-        $output['status'] = false;
-        $output['status_code'] = 422;
-        $output['message'] = "Something Went Wrong";
-        $output['data']  = "";
-
-        $data['countries'] = "";
-        $data['languages'] = "";
-
-        $get_data = [];
-        $get_countries = Country::get();
-        // return $get_countries;
-        if(!$get_countries->isEmpty()){
-            foreach($get_countries as $key => $value){
-                $countryArr = [];
-                $countryArr['id'] = $value['id'];
-                $countryArr['name'] = $value['name'];
-                $countryArr['phonecode'] = $value['phonecode'];
-                $countryArr['iso3'] = $value['iso3'];
-                $countryArr['region'] = $value['region'];
-                $countryArr['emoji'] = $value['emoji'];
-                $get_data[] = $countryArr;
-            }
-            $data['countries'] = $get_data;
-
-            // $language 
-            $get_language = [];
-            $get_lang = Language::where('status','Active')->get();
-            if(!$get_lang->isEmpty()){
-                foreach($get_lang as $key => $value){
-                    $languageArr = [];
-                    $languageArr['id'] = $value['id'];
-                    $languageArr['name'] = $value['name'];
-                    $languageArr['image'] = $value['image'] !='' ? asset('uploads/languages/'.$value['image']) : asset('uploads/placeholder/placeholder.jpg');
-                    $get_language[] = $languageArr;
-                }
-                $data['languages']= $get_language;
-            }
-
-            $output['status'] = true;
-            $output['status_code'] = 200;
-            $output['message'] = "Data Fetch successfully!";
-            $output['data'] = $data;
-        }
-        return json_encode($output);
-    }
-
 }

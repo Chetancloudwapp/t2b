@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Users</h1>
+                    <h1>Countries</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item active">Users</li>
+                        <li class="breadcrumb-item active">Countries</li>
                     </ol>
                 </div>
             </div>
@@ -30,15 +30,14 @@
                                 </button>
                               </div>
                             @endif
-                            <h3 class="card-title nofloat"> <span>Users</span>
-                            	<span> <a href="{{ url('admin/user/add') }}"> <button type="button" class="btn btn-block btn-primary">Add Users</button> </a> </span>
-                            </h3>
+                            <h3 class="card-title nofloat"> <span>Countries</span></h3>
                         </div>
                         <div class="card-body">
                             <table id="categories" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>S.No.</th>
+                                        <th>Flag</th>
                                         <th>Name</th>
                                         <th>Status</th>
                                         {{-- <th class="text-center">Action</th> --}}
@@ -48,6 +47,7 @@
                                     @foreach($get_countries as $key => $countries)
                                         <tr>
                                             <td>{{ ++$key }}</td>
+                                            <td>{{ $countries['emoji'] }}</td>
                                             <td>{{ $countries['name'] }}</td>
                                             <td>
                                                 @if($countries['is_show'] == 1)

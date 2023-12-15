@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Users</h1>
+                    <h1>Region</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item active">Users</li>
+                        <li class="breadcrumb-item active">Region</li>
                     </ol>
                 </div>
             </div>
@@ -30,8 +30,8 @@
                                 </button>
                               </div>
                             @endif
-                            <h3 class="card-title nofloat"> <span>Users</span>
-                            	<span> <a href="{{ url('admin/user/add') }}"> <button type="button" class="btn btn-block btn-primary">Add Users</button> </a> </span>
+                            <h3 class="card-title nofloat"> <span>Region</span>
+                            	<span> <a href="{{ url('admin/region/add') }}"> <button type="button" class="btn btn-block btn-primary">Add Regions</button> </a> </span>
                             </h3>
                         </div>
                         <div class="card-body">
@@ -39,36 +39,19 @@
                                 <thead>
                                     <tr>
                                         <th>S.No.</th>
-                                        <th>Image</th>
                                         <th>Name</th>
-                                        <th>email</th>
-                                        <th>Phone Number</th>
-                                        <th>Status</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($users as $key => $user)
+                                    @foreach($get_region as $key => $region)
                                         <tr>
                                             <td>{{ ++$key }}</td>
-                                            <td>
-                                                <img class="tbl-img-css rounded-circle" width="50px"
-                                                src="{{ asset('uploads/userimage/'. $user['image']) }}">
-                                            </td>
-                                            <td>{{ $user['name'] }}</td>
-                                            <td>{{ $user['email'] }}</td>
-                                            <td>{{ $user['country_code'] }}-{{ $user['phone_number'] }}</td>
-                                            <td>
-                                                @if($user['status'] == 'Active')
-                                                   <span class="badge badge-pill badge-success">{{ $user['status']}}</span>
-                                                @else
-                                                   <span class="badge badge-pill badge-danger">{{ $user['status'] }}</span>
-                                                @endif
-                                            </td>
+                                            <td>{{ $region['name'] }}</td>
                                             <td class="text-center">
                                                 {{-- <a href="javascript:;"> <i class="fa-solid fa-eye"></i> </a> --}}
-                                                <a href="{{ url('admin/user/edit/'.$user['id']) }}"> <i class="fa-solid fa-pencil"></i></a>
-                                                <a href="javascript:void(0)" record="user/delete" record_id="{{ $user['id'] }}" class="confirmDelete" name="user" title="Delete user Page"> <i class="fa-solid fa-trash" ></i> </a>
+                                                <a href="{{ url('admin/region/edit/'.$region['id']) }}"> <i class="fa-solid fa-pencil"></i></a>
+                                                <a href="javascript:void(0)" record="region/delete" record_id="{{ $region['id'] }}" class="confirmDelete" name="region" title="Delete region Page"> <i class="fa-solid fa-trash" ></i> </a>
                                             </td>
                                         </tr>
                                     @endforeach

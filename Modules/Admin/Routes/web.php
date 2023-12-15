@@ -33,12 +33,23 @@ Route::prefix('admin')->group(function() {
         // user route
         Route::match(['get','post'], '/user', 'UserController@index');
         Route::match(['get', 'post'], '/user/add', 'UserController@addUser');
+        Route::match(['get', 'post'], '/user/edit/{id}', 'UserController@editUser');
+        Route::match(['get', 'post'], '/user/delete/{id?}', 'UserController@destroy');
+
+        // get regions on behalf of countries 
+        Route::post('/get-regions', 'UserController@getRegions');
 
         // get countries route
         Route::match(['get','post'], '/countries', 'CountryController@index');
 
-        // country status
+        // update country status route
         Route::post('/update-country-status', 'CountryController@updateCountryStatus');
+
+        // region route
+        Route::match(['get','post'], '/region', 'CountryController@region');
+        Route::match(['get','post'], '/region/add', 'CountryController@addRegion');
+        Route::match(['get','post'], '/region/edit/{id}', 'CountryController@editRegion');
+        Route::match(['get','post'], '/region/delete/{id}', 'CountryController@destroy');
     });
 });
 
