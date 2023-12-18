@@ -25,16 +25,16 @@ class CommonController extends Controller
         $output['data']  = "";
 
         $get_data = [];
-        $get_countries = Country::with('region')->where('is_show', '1')->where('id','101')->get();
-        dd($get_countries);
+        $get_countries = Country::with('regions')->where('is_show', '1')->get();
         if(!$get_countries->isEmpty()){
-            foreach($get_countries as $key => $value){
+            foreach($get_countries as $key => $country){
                 $countryArr = [];
-                $countryArr['id'] = $value['id'];
-                $countryArr['name'] = $value['name'];
-                $countryArr['phonecode'] = $value['phonecode'];
-                $countryArr['iso3'] = $value['iso3'];
-                $countryArr['emoji'] = $value['emoji'];
+                $countryArr['id'] = $country['id'];
+                $countryArr['name'] = $country['name'];
+                $countryArr['phonecode'] = $country['phonecode'];
+                $countryArr['iso3'] = $country['iso3'];
+                $countryArr['emoji'] = $country['emoji'];  
+                $countryArr['region'] = $country['regions'];
                 $get_data[] = $countryArr;
             }
         

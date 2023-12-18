@@ -17,7 +17,8 @@ class Country extends Model
         return \Modules\Admin\Database\factories\CountryFactory::new();
     }
 
-    public function region(){
-        return $this->hasMany('Modules\Admin\Entities\Region', 'country', 'country_id');
+    public function regions(){
+        // return $this->belongsTo('Modules\Admin\Entities\Region', 'country', 'id')->select('name');
+        return $this->hasMany('Modules\Admin\Entities\Region', 'country', 'id')->select('country','name');
     }
 }

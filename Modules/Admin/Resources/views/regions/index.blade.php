@@ -39,7 +39,8 @@
                                 <thead>
                                     <tr>
                                         <th>S.No.</th>
-                                        <th>Name</th>
+                                        <th>Country</th>
+                                        <th>Region</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -47,6 +48,7 @@
                                     @foreach($get_region as $key => $region)
                                         <tr>
                                             <td>{{ ++$key }}</td>
+                                            <td>{{ $region['country'] }}</td>
                                             <td>{{ $region['name'] }}</td>
                                             <td class="text-center">
                                                 {{-- <a href="javascript:;"> <i class="fa-solid fa-eye"></i> </a> --}}

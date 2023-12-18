@@ -219,10 +219,14 @@ class AuthController extends Controller
     public function UserProfileUpdate(Request $request)
     {
         $rules = [
-            "name"         => "required",
-            "country_code" => "required",
-            "phone_number" => "required",
-            "company_name" => "required",
+            "image"        => "mimes:jpeg,jpg,png,gif",
+            "name"         => "required|string|max:255",
+            "email"        => "email|unique:users",
+            "country_code" => "required|integer",
+            "phone_number" => "required|integer|min:6",
+            "company_name" => "required|string|max:255",
+            "country_id"   => "required|integer",
+            "region"       => "required|integer",
         ];
 
         $validation = Validator::make($request->all(), $rules);
@@ -236,12 +240,22 @@ class AuthController extends Controller
 
         // Update the user profile
         $user = auth()->user();
-        $user->name = $request->name;
-        $user->country_code = $request->country_code;
-        $user->phone_number = $request->phone_number;
-        $user->company_name = $request->company_name;
-        // $user->email = $request->email;
-        $user->save();
+        if(isset($request->image)){
+            if($request->has('image')){
+                $image = $request->file('image');
+                $name = time(). "." .$image->getClientOriginalExtension();
+                $path = public_path('uploads/userimage/');
+                $image->move($path, $name);
+                $user->image = $name;
+            }
+        }
+
+        if(isset($request->email)){
+            $user->email = $request->email;
+        }
+     
+        $user->update($validation->validated());
+
         $user['image'] = url('uploads/userimage/'.$user['image']);
 
         // Typecast user data 
