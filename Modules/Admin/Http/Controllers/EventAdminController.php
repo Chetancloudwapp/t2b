@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Models\Event;
-use App\Models\EventImage;
+use Modules\Admin\Entities\Event;
+use Modules\Admin\Entities\EventImage;
 use Validator;
 use Image;
 
@@ -29,7 +29,7 @@ class EventAdminController extends Controller
 
         if($request->isMethod('post')){
             $data = $request->all();
-            // echo "<pre>"; print_r($data); die;
+            echo "<pre>"; print_r($data); die;
 
             $rules = [
                 "name"   => 'required|regex:/^[^\d]+$/|min:2|max:255',
@@ -70,7 +70,7 @@ class EventAdminController extends Controller
                 }
             $events->banner_image = $imageName;
             $events->name = $data['name'];
-            $events->description = strip_tags($data['description']);
+            $events->description = $data['description'];
             $events->eventdate = $data['eventdate'];
             $events->status = $data['status'];
             $events->save();
@@ -149,7 +149,7 @@ class EventAdminController extends Controller
                 }
             $events->banner_image = $imageName;
             $events->name = $data['name'];
-            $events->description = strip_tags($data['description']);
+            $events->description = $data['description'];
             $events->eventdate = $data['eventdate'];
             $events->status = $data['status'];
             $events->save();

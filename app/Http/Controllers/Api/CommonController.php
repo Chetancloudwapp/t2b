@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Modules\Admin\Entities\Language;
 use Modules\Admin\Entities\Country;
+use Modules\Admin\Entities\Region;
 use Validator;
 use Hash;
 use DB;
@@ -46,6 +47,52 @@ class CommonController extends Controller
         return json_encode($output);
     }
 
+    public function getRegions(Request $request)
+    {
+        $output = [];
+        $output['status'] = false;
+        $output['status_code'] = 422;
+        $output['message'] = "Region Not Found";
+        $output['data'] = '';
+
+        $rules = [
+            "country_id" => "required",
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails()){
+            return response()->json([
+                'status' => false,
+                'message' => $validator->errors()->first(),
+            ],422);
+        }
+
+        $get_region = [];
+        $country_id = $request->country_id;
+        $get_regions = Region::where('country', $country_id)->get();
+        if(!$get_regions->isEmpty()){
+            foreach($get_regions as $key => $value){
+                $regionArr = [];
+                $regionArr['country_id'] = $value['country'];
+                $regionArr['region'] = $value['name'];
+                $regionArr['country_name'] = "";
+
+                // get country name
+                $get_countries = Country::select('id','name')->where('id', $value['country'])->first();
+                if(!empty($get_countries)){
+                    $regionArr['country_name'] = $get_countries->name;
+                    $get_region[] = $regionArr;
+                }
+            }
+            $output['data'] = $get_region;
+            $output['status'] = true;
+            $output['status_code'] = 200;
+            $output['message'] = "Data Fetch Successfully!";
+        }
+        return json_encode($output);
+    }
+
+    // get languages
     public function getLanguages()
     {
         $output = [];

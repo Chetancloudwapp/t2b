@@ -28,6 +28,9 @@ Route::post('/login_user', [AuthController::class, 'LoginUser']);
 // country listing
 Route::get('/country_listing', [CommonController::class, 'getCountry']);
 
+// get regions
+Route::post('/get_regions', [CommonController::class, 'getRegions']);
+
 // language listing
 Route::get('/language', [CommonController::class, 'getLanguages']);
 
@@ -37,8 +40,9 @@ Route::group(['middleware'=>['auth:api']], function () {
     Route::post('/logout_user', [AuthController::class, 'LogoutUser']);
     Route::get('/user_detail', [AuthController::class,'UserDetail']);
     Route::post('/user_profile_update', [AuthController::class,'UserProfileUpdate']);
-
+    
     // Add Events
-    Route::post('/add_events', [EventController::class, 'addEvents']);
+    Route::get('/event_listing', [EventController::class, 'eventListing']);
+    Route::post('/event_detail', [EventController::class, 'eventDetail']);
 });
 

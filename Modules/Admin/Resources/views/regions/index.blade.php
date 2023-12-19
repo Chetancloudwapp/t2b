@@ -48,7 +48,21 @@
                                     @foreach($get_region as $key => $region)
                                         <tr>
                                             <td>{{ ++$key }}</td>
-                                            <td>{{ $region['country'] }}</td>
+                                            {{-- <td>{{ $region['country'] }}</td> --}}
+                                            <td>
+                                                @php
+                                                  if($region['country']){
+                                                    $get_country = Modules\Admin\Entities\Country::select('id','name')->where(['id' => $region['country']])->where('is_show', '1')->first();
+                                                    if($get_country){
+                                                        echo $get_country->name;
+                                                    }else{
+                                                        echo "-";
+                                                    }
+                                                  }else{
+                                                    echo "-";
+                                                  }
+                                                @endphp
+                                            </td>
                                             <td>{{ $region['name'] }}</td>
                                             <td class="text-center">
                                                 {{-- <a href="javascript:;"> <i class="fa-solid fa-eye"></i> </a> --}}

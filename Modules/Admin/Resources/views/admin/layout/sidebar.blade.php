@@ -56,7 +56,7 @@
                     </ul>
                 </li>
                 <li class="nav-item"> 
-                    <a href="{{ url('admin/language')}}" class="nav-link {{ Request::is('admin/language') || Request::is('admin/language/add') ? 'active' : ''}}"> <i class="fa-solid fa-language"></i>&nbsp;&nbsp;
+                    <a href="{{ url('admin/language')}}" class="nav-link {{ Request::is('admin/language') || Request::is('admin/language/add') || Request::is('admin/language/edit/{id}') ? 'active' : ''}}"> <i class="fa-solid fa-language"></i>&nbsp;&nbsp;
                         <p>Languages</p>
                     </a> 
                 </li>
@@ -76,7 +76,7 @@
                     </a> 
                 </li>
                 <li class="nav-item"> 
-                    <a href="{{ url('admin/region')}}" class="nav-link {{ Request::is('admin/region') ? 'active' : ''}}"> <i class="fa-solid fa-earth-asia"></i>&nbsp;&nbsp;
+                    <a href="{{ url('admin/region')}}" class="nav-link {{ Request::is('admin/region') || Request::is('admin/region/add') || Request::is('admin/region/edit/{id}') ? 'active' : ''}}"> <i class="fa-solid fa-earth-asia"></i>&nbsp;&nbsp;
                         <p>Region</p>
                     </a> 
                 </li>

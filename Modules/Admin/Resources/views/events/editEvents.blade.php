@@ -59,7 +59,7 @@
                                             class="form-control {{ $errors->has('eventdate') ? 'form-control-danger' : '' }}"
                                             name="eventdate" type="date"
 
-                                            value="{{ date("Y-m-d",strtotime($events['eventdate'])) }}" placeholder="Enter name">      
+                                            value="{{ date("Y-m-d",strtotime($events['eventdate'])) }}">      
                                         @error('eventdate')
                                             <div class="col-form-alert-label">
                                                 {{ $message }}

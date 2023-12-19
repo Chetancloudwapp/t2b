@@ -23,6 +23,28 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title nofloat"> <span>{{ $title}} </span>
+                                <div class="language">
+                                    <form action="/action_page.php" style="display: flex;">
+
+                                        {{-- <label for="english">
+                                            <input type="checkbox" id="english" name="languages[]" value="en"> English
+                                        </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    
+                                        <label for="italian">
+                                            <input type="checkbox" id="italian" name="languages[]" value="it"> Italian
+                                        </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    
+                                        <label for="german">
+                                            <input type="checkbox" id="german" name="languages[]" value="de"> German
+                                        </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    
+                                        <label for="french">
+                                            <input type="checkbox" id="french" name="languages[]" value="fr"> French
+                                        </label>&nbsp;&nbsp;&nbsp;&nbsp; --}}
+                                    
+                                    </form>
+                                </div>
+                                
                             <a href="{{ url('admin/events')}}">
                                 <button onClick="back();"
                                     class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger"
@@ -36,6 +58,23 @@
                             @csrf
                             <div class="row">
                                 <input type="hidden" name="id" value="{{$events['id']}}">
+                                <div class="col-md-12" style="display: flex">
+                                    <label for="english">
+                                        <input type="checkbox" id="english" name="languages[]" value="en"> English
+                                    </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                
+                                    <label for="italian">
+                                        <input type="checkbox" id="italian" name="languages[]" value="it"> Italian
+                                    </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                
+                                    <label for="german">
+                                        <input type="checkbox" id="german" name="languages[]" value="de"> German
+                                    </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                
+                                    <label for="french">
+                                        <input type="checkbox" id="french" name="languages[]" value="fr"> French
+                                    </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                </div><br>
                                 <div class="col-md-6">
                                     <div class="form-group mb-3 {{ $errors->has('name') ? 'has-danger' : '' }}">
                                         <label class="col-form-label">{{('Name')}}<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
@@ -113,12 +152,12 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group mb-3 {{ $errors->has('description') ? 'has-danger' : '' }}">
                                         <label class="col-form-label">Description</label>
                                         <textarea
-                                           class="form-control summernote {{ $errors->has('description') ? 'form-control-danger' : ''}}"
-                                           name="description" type="message"
+                                           class="form-control {{ $errors->has('description') ? 'form-control-danger' : ''}}"
+                                           name="description" rows="3" type="message"
                                             placeholder="Enter Description">{{ old('description',  $events['description']) }}</textarea>   
                                         @error('description')
                                             <div class="col-form-alert-label">
