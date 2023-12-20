@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\Admin\Entities\Event;
 use Modules\Admin\Entities\EventImage;
+use Modules\Admin\Entities\Language;
 use Validator;
 use Image;
 
@@ -24,58 +25,97 @@ class EventAdminController extends Controller
     public function addEvents(Request $request)
     {
         $title = "Add Events";
-        $events = new Event();
+        $events = new Event([
+            'name' => [
+                'en' => $request->en_name,
+                'it' => $request->it_name,
+                'de' => $request->de_name,
+                'fr' => $request->fr_name,
+            ],
+            'description' => [
+                'en' => $request->en_description,
+                'it' => $request->it_description,
+                'de' => $request->de_description,
+                'fr' => $request->fr_description,
+            ],
+        ]);
+        // $events = new Event();
         $message = "Events Added Successfully!";
 
         if($request->isMethod('post')){
             $data = $request->all();
-            echo "<pre>"; print_r($data); die;
+            // echo "<pre>"; print_r($data); die;
 
             $rules = [
-                "name"   => 'required|regex:/^[^\d]+$/|min:2|max:255',
-                "banner_image"  => 'mimes:jpeg,jpg,png,gif|required|max:10000',
-                "description" => 'required',
+                "en_name"        => 'required|regex:/^[^\d]+$/|min:2|max:255',
+                "en_description" => 'required',
+                "it_name"        => 'required|regex:/^[^\d]+$/|min:2|max:255',
+                "it_description" => 'required',
+                "de_name"        => 'required|regex:/^[^\d]+$/|min:2|max:255',
+                "de_description" => 'required',
+                "fr_name"        => 'required|regex:/^[^\d]+$/|min:2|max:255',
+                "fr_description" => 'required',
+                "banner_image"   => 'mimes:jpeg,jpg,png,gif|required|max:10000',
             ];
 
-            $validator = Validator::make($request->all(), $rules);
+            $customValidation = [
+                "en_name.required"      => "Name is required",
+                "en_description"        => "Description is required",
+                "it_name.required"      => "Name is required",
+                "it_description"        => "Description is required",
+                "de_name.required"      => "Name is required",
+                "de_description"        => "Description is required",
+                "fr_name.required"      => "Name is required",
+                "fr_description"        => "Description is required",
+                "banner_image.required" => "Image is required",
+            ];
+
+            $validator = Validator::make($request->all(), $rules, $customValidation);
             if($validator->fails()){
                 return back()->withErrors($validator)->withInput();
             }
 
-            // if($request->has('image')){
-            //     $image = $request->file('image');
-            //     $name = time().'.'.$image->extension();
-            //     $path = public_path('uploads/eventss/');
-            //     $image->move($path, $name);
-            //     $events->image= $name;
-            // }
+            // Upload featured Image
+            if($request->hasFile('banner_image')){
+            $image_tmp = $request->file('banner_image');
+                if($image_tmp->isValid()){
+                    // Get Image Extension
+                    $extension = $image_tmp->getClientOriginalExtension();
+                    // Generate new Image Name
+                    $imageName = rand(111,99999).'.'.$extension;
+                    $image_path = public_path('uploads/events/bannerImage/'.$imageName);
 
-             // Upload featured Image
-             if($request->hasFile('banner_image')){
-                $image_tmp = $request->file('banner_image');
-                    if($image_tmp->isValid()){
-                        // Get Image Extension
-                        $extension = $image_tmp->getClientOriginalExtension();
-                        // Generate new Image Name
-                        $imageName = rand(111,99999).'.'.$extension;
-                        $image_path = public_path('uploads/events/bannerImage/'.$imageName);
-    
-                        // upload images
-                        Image::make($image_tmp)->resize(520, 600)->save($image_path);
-                    }
-                }else if(!empty($data['current_image'])){
-                    $imageName = $data['current_image'];
-                }else{
-                    $imageName = "";
+                    // upload images
+                    Image::make($image_tmp)->resize(520, 600)->save($image_path);
                 }
+            }else if(!empty($data['current_image'])){
+                $imageName = $data['current_image'];
+            }else{
+                $imageName = "";
+            }
             $events->banner_image = $imageName;
-            $events->name = $data['name'];
-            $events->description = $data['description'];
+
+            // if(isset($request->en_name) || $request->en_description){
+            //     $events->name = $data['en_name'];
+            //     $events->description = $data['en_description'];
+            // }
+            // if(isset($request->it_name) || $request->it_description){
+            //     $events->name = $data['it_name'];
+            //     $events->description = $data['it_description'];
+            // }
+            // if(isset($request->de_name) || $request->de_description){
+            //     $events->name = $data['de_name'];
+            //     $events->description = $data['de_description'];
+            // }
+            // if(isset($request->fr_name) || $request->fr_description){
+            //     $events->name = $data['fr_name'];
+            //     $events->description = $data['fr_description'];
+            // }
             $events->eventdate = $data['eventdate'];
             $events->status = $data['status'];
             $events->save();
 
-              // Upload Events Image
+            // Upload Events Image
             if($request->hasFile('images')){
                 $images = $request->file('images');
                 foreach($images as $key => $image){
@@ -111,7 +151,10 @@ class EventAdminController extends Controller
     public function editEvents(Request $request, $id)
     {
         $title = "Edit Events";
-        $events = Event::find($id);
+        $events = Event::with('galleryimages')->find($id);
+        // echo "<pre>"; print_r($events->toArray()); die;
+
+        // $events = $product->getTranslation('name', 'it');
         $message = "Events Updated Successfully!";
 
         if($request->isMethod('post')){
@@ -148,7 +191,7 @@ class EventAdminController extends Controller
                     $imageName = "";
                 }
             $events->banner_image = $imageName;
-            $events->name = $data['name'];
+            // $events->getTranslation('name', 'it') = $data['name'];
             $events->description = $data['description'];
             $events->eventdate = $data['eventdate'];
             $events->status = $data['status'];
@@ -184,12 +227,23 @@ class EventAdminController extends Controller
         return view('admin::events.editEvents')->with(compact('title', 'events'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id): RedirectResponse
+    public function deleteEventImages($id)
     {
-        //
+        $eventImage = EventImage::where('id', $id)->first();
+        return $eventImage;
+        
+        /* --- get the path of gallery image */
+        $image_path = public_path('uploads/events/galleryImages/');
+      
+
+        if(file_exists($image_path.$eventImage->images)){
+            unlink($image_path.$eventImage->images);
+        }
+
+        /* --- Delete gallery images --- */
+        $eventImage = EventImage::where('id', $id)->delete();       
+        $message = "Gallery Image has been deleted Successfully!";
+        return redirect('admin/events')->with('success_message', $message);
     }
 
     /**

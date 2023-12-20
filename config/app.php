@@ -83,7 +83,16 @@ return [
     |
     */
 
+
+    // 'locales' => [
+    //     'en' => 'English',
+    //     'it' => 'Italian',
+    //     'fr' => 'French',
+    //     'de' => 'German',
+    // ],
+
     'locale' => 'en',
+    'available_locales' => ['en', 'it', 'fr', 'de'], // Example of supported locales
 
     /*
     |--------------------------------------------------------------------------

@@ -56,6 +56,8 @@ Route::prefix('admin')->group(function() {
         Route::match(['get','post'], '/events/add', 'EventAdminController@addEvents');
         Route::match(['get','post'], '/events/edit/{id}', 'EventAdminController@editEvents');
         Route::match(['get','post'], '/events/delete/{id}', 'EventAdminController@destroy');
+        Route::match(['get', 'post'], '/events/deleteImage/{id?}', 'EventAdminController@deleteEventImages');
+
         
     });
 });

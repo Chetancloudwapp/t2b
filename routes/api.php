@@ -42,7 +42,7 @@ Route::group(['middleware'=>['auth:api']], function () {
     Route::post('/user_profile_update', [AuthController::class,'UserProfileUpdate']);
     
     // Add Events
-    Route::get('/event_listing', [EventController::class, 'eventListing']);
+    Route::get('/event_listing/?{lang=locale}', [EventController::class, 'eventListing']);
     Route::post('/event_detail', [EventController::class, 'eventDetail']);
 });
 

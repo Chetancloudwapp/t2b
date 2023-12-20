@@ -22,29 +22,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title nofloat"> <span>{{ $title}} </span>
-                                <div class="language">
-                                    <form action="/action_page.php" style="display: flex;">
-
-                                        {{-- <label for="english">
-                                            <input type="checkbox" id="english" name="languages[]" value="en"> English
-                                        </label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    
-                                        <label for="italian">
-                                            <input type="checkbox" id="italian" name="languages[]" value="it"> Italian
-                                        </label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    
-                                        <label for="german">
-                                            <input type="checkbox" id="german" name="languages[]" value="de"> German
-                                        </label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    
-                                        <label for="french">
-                                            <input type="checkbox" id="french" name="languages[]" value="fr"> French
-                                        </label>&nbsp;&nbsp;&nbsp;&nbsp; --}}
-                                    
-                                    </form>
-                                </div>
-                                
+                            <h3 class="card-title nofloat"> <span>{{ $title}} </span> 
                             <a href="{{ url('admin/events')}}">
                                 <button onClick="back();"
                                     class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger"
@@ -58,37 +36,161 @@
                             @csrf
                             <div class="row">
                                 <input type="hidden" name="id" value="{{$events['id']}}">
-                                <div class="col-md-12" style="display: flex">
-                                    <label for="english">
-                                        <input type="checkbox" id="english" name="languages[]" value="en"> English
-                                    </label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                
-                                    <label for="italian">
-                                        <input type="checkbox" id="italian" name="languages[]" value="it"> Italian
-                                    </label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                
-                                    <label for="german">
-                                        <input type="checkbox" id="german" name="languages[]" value="de"> German
-                                    </label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                
-                                    <label for="french">
-                                        <input type="checkbox" id="french" name="languages[]" value="fr"> French
-                                    </label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                </div><br>
-                                <div class="col-md-6">
-                                    <div class="form-group mb-3 {{ $errors->has('name') ? 'has-danger' : '' }}">
-                                        <label class="col-form-label">{{('Name')}}<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
-                                        <input
-                                            class="form-control {{ $errors->has('name') ? 'form-control-danger' : '' }}"
-                                            name="name" type="text"
-                                            value="{{ old('name', $events['name']) }}" placeholder="Enter name">      
-                                        @error('name')
-                                            <div class="col-form-alert-label">
-                                                {{ $message }}
+                                <div class="col-md-12">
+                                    <div class="card card-primary card-outline card-outline-tabs">
+                                        <div class="card-header p-0 border-bottom-0">
+                                            <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true">English</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Italian</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="custom-tabs-four-messages-tab" data-toggle="pill" href="#custom-tabs-four-messages" role="tab" aria-controls="custom-tabs-four-messages" aria-selected="false">German</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="custom-tabs-four-settings-tab" data-toggle="pill" href="#custom-tabs-four-settings" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">French</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="tab-content" id="custom-tabs-four-tabContent">
+                                                <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group mb-3 {{ $errors->has('en_name') ? 'has-danger' : '' }}">
+                                                                <label class="col-form-label">{{('Name')}}<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
+                                                                <input
+                                                                    class="form-control {{ $errors->has('en_name') ? 'form-control-danger' : '' }}"
+                                                                    name="en_name" type="text"
+                                                                    value="{{ old('en_name') }}" placeholder="Enter name"> 
+                                                                @error('en_name')
+                                                                    <div class="col-form-alert-label">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group mb-3 {{ $errors->has('en_description') ? 'has-danger' : '' }}">
+                                                                <label class="col-form-label">Description</label>
+                                                                <textarea
+                                                                class="form-control {{ $errors->has('en_description') ? 'form-control-danger' : ''}}"
+                                                                name="en_description" type="message"
+                                                                    placeholder="Enter Description">{{ old('en_description') }}</textarea>  
+                                                                @error('en_description')
+                                                                    <div class="col-form-alert-label">
+                                                                    {{$message}}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group mb-3 {{ $errors->has('it_name') ? 'has-danger' : '' }}">
+                                                                <label class="col-form-label">{{('Name')}}<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
+                                                                <input
+                                                                    class="form-control {{ $errors->has('it_name') ? 'form-control-danger' : '' }}"
+                                                                    name="it_name" type="text"
+                                                                    value="{{ old('it_name') }}" placeholder="Enter name"> 
+                                                                @error('it_name')
+                                                                    <div class="col-form-alert-label">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group mb-3 {{ $errors->has('it_description') ? 'has-danger' : '' }}">
+                                                                <label class="col-form-label">Description</label>
+                                                                <textarea
+                                                                class="form-control {{ $errors->has('it_description') ? 'form-control-danger' : ''}}"
+                                                                name="it_description" type="message"
+                                                                    placeholder="Enter Description">{{ old('it_description') }}</textarea>  
+                                                                @error('it_description')
+                                                                    <div class="col-form-alert-label">
+                                                                    {{$message}}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="custom-tabs-four-messages" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group mb-3 {{ $errors->has('de_name') ? 'has-danger' : '' }}">
+                                                                <label class="col-form-label">{{('Name')}}<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
+                                                                <input
+                                                                    class="form-control {{ $errors->has('de_name') ? 'form-control-danger' : '' }}"
+                                                                    name="de_name" type="text"
+                                                                    value="{{ old('de_name') }}" placeholder="Enter name"> 
+                                                                @error('de_name')
+                                                                    <div class="col-form-alert-label">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group mb-3 {{ $errors->has('de_description') ? 'has-danger' : '' }}">
+                                                                <label class="col-form-label">Description</label>
+                                                                <textarea
+                                                                class="form-control {{ $errors->has('de_description') ? 'form-control-danger' : ''}}"
+                                                                name="de_description" type="message"
+                                                                    placeholder="Enter Description">{{ old('de_description') }}</textarea>  
+                                                                @error('de_description')
+                                                                    <div class="col-form-alert-label">
+                                                                    {{$message}}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="custom-tabs-four-settings" role="tabpanel" aria-labelledby="custom-tabs-four-settings-tab">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group mb-3 {{ $errors->has('fr_name') ? 'has-danger' : '' }}">
+                                                                <label class="col-form-label">{{('Name')}}<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
+                                                                <input
+                                                                    class="form-control {{ $errors->has('fr_name') ? 'form-control-danger' : '' }}"
+                                                                    name="fr_name" type="text"
+                                                                    value="{{ old('fr_name') }}" placeholder="Enter name"> 
+                                                                @error('fr_name')
+                                                                    <div class="col-form-alert-label">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group mb-3 {{ $errors->has('fr_description') ? 'has-danger' : '' }}">
+                                                                <label class="col-form-label">Description</label>
+                                                                <textarea
+                                                                class="form-control {{ $errors->has('fr_description') ? 'form-control-danger' : ''}}"
+                                                                name="fr_description" type="message"
+                                                                    placeholder="Enter Description">{{ old('fr_description') }}</textarea>  
+                                                                @error('fr_description')
+                                                                    <div class="col-form-alert-label">
+                                                                    {{$message}}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        @enderror
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
+                                {{-- <input type="hidden" name="id" value="{{$events['id']}}"> --}}
                                 <div class="col-md-6">
                                     <div class="form-group mb-3 {{ $errors->has('eventdate') ? 'has-danger' : '' }}">
                                         <label class="col-form-label">{{('EventDate')}}</label>
@@ -151,21 +253,7 @@
                                             @endforeach --}}
                                         </ul>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group mb-3 {{ $errors->has('description') ? 'has-danger' : '' }}">
-                                        <label class="col-form-label">Description</label>
-                                        <textarea
-                                           class="form-control {{ $errors->has('description') ? 'form-control-danger' : ''}}"
-                                           name="description" rows="3" type="message"
-                                            placeholder="Enter Description">{{ old('description',  $events['description']) }}</textarea>   
-                                        @error('description')
-                                            <div class="col-form-alert-label">
-                                            {{$message}}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
+                                </div>                            
                                 <div class="col-md-6">
                                     <div class="form-group mb-3 {{ $errors->has('status') ? 'has-danger' : '' }}">
                                         <label class="col-form-label">Status</label>
@@ -184,22 +272,8 @@
                                         @enderror
                                     </div>
                                 </div>
-                                {{-- <div class="col-md-6">
-                                    <div class="form-group mb-3 {{ $errors->has('status_reason') ? 'has-danger' : '' }}">
-                                        <label class="col-form-label">{{('Status Reason')}}<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
-                                        <input
-                                            class="form-control {{ $errors->has('status_reason') ? 'form-control-danger' : '' }}"
-                                            name="status_reason" type="text"
-                                            value="{{ old('status_reason', $events['status_reason']) }}" placeholder="Enter Status Reason">      
-                                        @error('status_reason')
-                                            <div class="col-form-alert-label">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div> --}}
                             </div>
-                            <div class="card-footer"> <button type="submit" class="btn btn-primary">Submit</button> </div>
+                            <div class="card-footer"> <button type="submit" class="btn btn-primary">Submit</button></div>
                             </form>
                         </div>
                     </div>

@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="{{ asset('admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
     <link rel="stylesheet" href="{{ asset('admin/css/custom.css')}}">
     <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css')}}">
-
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">

@@ -11,19 +11,22 @@ use Modules\Admin\Entities\EventImage;
 
 class Event extends Model
 {
-    use HasFactory, SoftDeletes, HasTranslations;
+    use HasFactory, SoftDeletes; 
+    use HasTranslations;
 
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = [];
+    protected $fillable = ['name','description','banner_image','eventdate'];
 
-    public $translatable = ['name', 'description'];
+    protected $translatable = ['name', 'description'];
 
     protected $hidden = [
         'updated_at',
         'deleted_at',
     ];
+
+    
     
     protected static function newFactory(): EventFactory
     {
