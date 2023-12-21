@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Languages</h1>
+                    <h1>{{$common['title']}}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item active">Languages</li>
+                        <li class="breadcrumb-item active">{{$common['title']}}</li>
                     </ol>
                 </div>
             </div>
@@ -30,8 +30,8 @@
                                 </button>
                               </div>
                             @endif
-                            <h3 class="card-title nofloat"> <span>Languages</span>
-                            	<span> <a href="{{ url('admin/language/add') }}"> <button type="button" class="btn btn-block btn-primary">Add Languages</button> </a> </span>
+                            <h3 class="card-title nofloat"> <span>{{$common['title']}}</span>
+                            	<span> <a href="{{ url('admin/language/add') }}"> <button type="button" class="btn btn-block btn-primary"><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;Add Languages</button> </a> </span>
                             </h3>
                         </div>
                         <div class="card-body">
@@ -63,7 +63,7 @@
                                             </td>
                                             <td class="text-center">
                                                 {{-- <a href="javascript:;"> <i class="fa-solid fa-eye"></i> </a> --}}
-                                                <a href="{{ url('admin/language/edit/'.$language['id']) }}"> <i class="fa-solid fa-pencil"></i></a>
+                                                <a href="{{ url('admin/language/edit/'. encrypt($language['id'])) }}"> <i class="fa-solid fa-pencil"></i></a>
                                                 <a href="javascript:void(0)" record="language/delete" record_id="{{ $language['id'] }}" class="confirmDelete" name="Language" title="Delete Language Page"> <i class="fa-solid fa-trash" ></i> </a>
                                             </td>
                                         </tr>

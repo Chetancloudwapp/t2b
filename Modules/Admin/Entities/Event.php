@@ -34,7 +34,7 @@ class Event extends Model
     }
 
     public function galleryimages(){
-        return $this->hasMany('Modules\Admin\Entities\EventImage')->select('event_id','images');
+        return $this->hasMany('Modules\Admin\Entities\EventImage')->select('event_id','images','id');
 
     }
     

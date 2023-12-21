@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>{{ $title }}</h1>
+                    <h1>{{ $common['title'] }}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item active">{{ $title }}</li>
+                        <li class="breadcrumb-item active">{{ $common['title'] }}</li>
                     </ol>
                 </div>
             </div>
@@ -22,11 +22,11 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title nofloat"> <span>{{ $title}} </span> 
+                            <h3 class="card-title nofloat"> <span>{{ $common['heading_title']}} </span> 
                             <a href="{{ url('admin/events')}}">
                                 <button onClick="back();"
                                     class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger"
-                                    data-modal="modal-13" style="float: right"> <i class="ti-control-backward m-r-5"></i> Back
+                                    data-modal="modal-13" style="float: right"><i class="fa-solid fa-backward"></i>&nbsp;&nbsp; Back
                                 </button>
                             </a></h3>
                         </div>
@@ -273,7 +273,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-footer"> <button type="submit" class="btn btn-primary">Submit</button></div>
+                            <div class="card-footer"> <button type="submit" class="btn btn-primary">{{$common['button']}}</button></div>
                             </form>
                         </div>
                     </div>

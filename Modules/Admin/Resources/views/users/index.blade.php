@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Users</h1>
+                    <h1>{{$common['title']}}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item active">Users</li>
+                        <li class="breadcrumb-item active">{{$common['title']}}</li>
                     </ol>
                 </div>
             </div>
@@ -30,8 +30,8 @@
                                 </button>
                               </div>
                             @endif
-                            <h3 class="card-title nofloat"> <span>Users</span>
-                            	<span> <a href="{{ url('admin/user/add') }}"> <button type="button" class="btn btn-block btn-primary">Add Users</button> </a> </span>
+                            <h3 class="card-title nofloat"> <span>{{$common['title']}}</span>
+                            	<span> <a href="{{ url('admin/user/add') }}"> <button type="button" class="btn btn-block btn-primary"><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;Add Users</button> </a> </span>
                             </h3>
                         </div>
                         <div class="card-body">
@@ -67,7 +67,7 @@
                                             </td>
                                             <td class="text-center">
                                                 {{-- <a href="javascript:;"> <i class="fa-solid fa-eye"></i> </a> --}}
-                                                <a href="{{ url('admin/user/edit/'.$user['id']) }}"> <i class="fa-solid fa-pencil"></i></a>
+                                                <a href="{{ url('admin/user/edit/'. encrypt($user['id'])) }}"> <i class="fa-solid fa-pencil"></i></a>
                                                 <a href="javascript:void(0)" record="user/delete" record_id="{{ $user['id'] }}" class="confirmDelete" name="user" title="Delete user Page"> <i class="fa-solid fa-trash" ></i> </a>
                                             </td>
                                         </tr>

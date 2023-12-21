@@ -268,4 +268,51 @@ class AuthController extends Controller
             'data'   => $user,
         ]);
     }
+
+    public function changePassword(Request $request)
+    {
+        $output = [];
+        $output['status'] = false;
+        $output['status_code'] = 422;
+        $output['message'] = "Something Went Wrong";
+
+        $rules = [
+            "old_password" => "required",
+            "new_password" => "required|min:4|max:12",
+            "confirm_password" => "required|same:new_password",
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails()){
+            return response()->json([
+                'status' => false,
+                'message'=> $validator->errors()->first(),
+            ],
+            422,);
+        }
+
+        $get_user = auth()->user();
+        $user = User::where('id', $get_user->id)->where('status','Active')->first();
+        if($user){
+            if(Hash::check($request->old_password, $get_user->password)){
+                if(!Hash::check($request->confirm_password, $get_user->password)){
+                    $user->password = Hash::make($request->confirm_password);
+                    $user->save();
+                    $output['status']  = true;
+                    $output['status_code'] = 200;
+                    $output['message'] = "Password Change Successfully!";
+                }else{
+                    $output['status']  = false;
+                    $output['status_code'] = 422;
+                    $output['message'] = "Your new password must be different from previously used password!";
+                }
+
+            }else{
+                $output['status']  = false;
+                $output['status_code'] = 402;
+                $output['message'] = " old password was wrong!";
+            }
+        }
+        return json_encode($output); 
+    }
 }

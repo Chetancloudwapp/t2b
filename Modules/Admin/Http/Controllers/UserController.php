@@ -16,31 +16,37 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::where('status','Active')->whereNull('deleted_at')->get();
-        return view('admin::users.index')->with(compact('users'));
+        $common = [];
+        $common['title'] = "Users";
+        $users = User::where('status','Active')->orderBy('id', 'desc')->get();
+        return view('admin::users.index')->with(compact('common','users'));
     }
 
     public function addUser(Request $request)
     {
-        $get_countries = Country::where('is_show', '1')->get();
-        $title = "Add User";
-        $user = new User;
+        $common = [];
+        $common['title'] = "Users";
+        $common['heading_title'] = "Add Users";
+        $common['button'] = "Submit";
         $message = "User Added Successfully!";
-
+        
+        // get country list
+        $get_countries = Country::where('is_show', '1')->get();
+        
         if($request->isMethod('post')){
             $data = $request->all();
-            // echo "<pre>"; print_r($data); die;
             $rules = [
                 "name" => "required",
                 "email" => "required",
                 "image" => "mimes:jpeg,jpg,png,gif",
             ];
-
+            
             $validator = Validator::make($request->all(), $rules);
             if($validator->fails()){
-               return back()->withErrors($validator)->withInput();
+                return back()->withErrors($validator)->withInput();
             }
-
+            
+            $user = new User();
             if($request->has('image')){
                 $image = $request->file('image');
                 $name = time(). "." .$image->getClientOriginalExtension();
@@ -48,7 +54,6 @@ class UserController extends Controller
                 $image->move($path, $name);
                 $user->image = $name;
             }
-
             $user->name = $data['name'];
             $user->email = $data['email'];
             $user->country_id = $data['country'];
@@ -62,15 +67,19 @@ class UserController extends Controller
             $user->save();
             return redirect('admin/user')->with('success_message', $message);
         }
-        return view('admin::users.addUser')->with(compact('title','user','get_countries'));
+        return view('admin::users.addUser')->with(compact('common','get_countries'));
     }
 
     public function editUser(Request $request, $id)
     {
-        $get_countries = Country::where('is_show', '1')->get();
-        $title = "Edit User";
+        $common = [];
+        $common['title'] = "Users";
+        $common['heading_title'] = "Edit Users";
+        $common['button'] = "Update";
+        $id = decrypt($id);
         $user = User::find($id);
         $message = "User Updated Successfully!";
+        $get_countries = Country::where('is_show', '1')->get();
 
         if($request->isMethod('post')){
             $data = $request->all();
@@ -107,7 +116,7 @@ class UserController extends Controller
             $user->save();
             return redirect('admin/user')->with('success_message', $message);
         }
-        return view('admin::users.edituser')->with(compact('title','user','get_countries'));
+        return view('admin::users.edituser')->with(compact('common','user','get_countries'));
     }
 
     /* -- get region on behalf of country -- */

@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>{{ $title }}</h1>
+                    <h1>{{ $common['title'] }}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item active">{{ $title }}</li>
+                        <li class="breadcrumb-item active">{{ $common['title'] }}</li>
                     </ol>
                 </div>
             </div>
@@ -22,11 +22,11 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title nofloat"> <span>{{ $title}} </span>
+                            <h3 class="card-title nofloat"> <span>{{ $common['heading_title']}} </span>
                             <a href="{{ url('admin/region')}}">
                                 <button onClick="back();"
                                     class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger"
-                                    data-modal="modal-13" style="float: right"> <i class="ti-control-backward m-r-5"></i> Back
+                                    data-modal="modal-13" style="float: right"> <i class="fa-solid fa-backward"></i>&nbsp;&nbsp; Back
                                 </button>
                             </a></h3>
                         </div>
@@ -35,7 +35,7 @@
                             method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
-                                    <input type="hidden" name="id" value="{{$region['id']}}">
+                                   
                                     <div class="col-md-6">
                                         <div class="form-group mb-3 {{ $errors->has('country') ? 'has-danger' : '' }}">
                                             <label class="col-form-label">{{('Country')}}<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
@@ -59,7 +59,7 @@
                                             <input
                                                 class="form-control {{ $errors->has('name') ? 'form-control-danger' : '' }}"
                                                 name="name" type="text"
-                                                value="{{ old('name', $region['name']) }}" placeholder="Enter name">      
+                                                value="{{ old('name') }}" placeholder="Enter name">      
                                             @error('name')
                                                 <div class="col-form-alert-label">
                                                     {{ $message }}
@@ -68,7 +68,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-footer"> <button type="submit" class="btn btn-primary">Submit</button> </div>
+                                <div class="card-footer"> <button type="submit" class="btn btn-primary">{{ $common['button'] }}</button> </div>
                             </form>
                         </div>
                     </div>

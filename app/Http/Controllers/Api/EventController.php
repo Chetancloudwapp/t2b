@@ -40,9 +40,9 @@ class EventController extends Controller
     }
 
     /* --- event listing --- */
-    public function eventListing(Request $request, $lang="")
+    public function eventListing(Request $request)
     {  
-        return $request->all();
+        // return $request->all();
         $output = [];
         $output['status'] = false;
         $output['status_code'] = 422;
@@ -99,7 +99,6 @@ class EventController extends Controller
 
         $rules = [
             "event_id" => "required|numeric",
-            "lang"     => "required|string",
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -112,17 +111,16 @@ class EventController extends Controller
 
         $get_events = [];
         $event_id = $request->event_id;
-        // app()->setLocale($request->lang);
        
         if(isset($request->lang) && !empty($request->lang)){
-            // die;
             app()->setLocale($request->lang);
         }
 
         $get_event = Event::with('galleryimages')->where('id', $event_id)->where('status','Active')->whereNull('deleted_at')->first();
-
-        // echo "<pre>"; print_r($get_event->toArray()); die;
-        
+       
+        // return  $get_event->name;
+        // echo "<pre>"; print_r($get_event); die;
+        $get_event_data = [];
         if($get_event){
             $gallery = [];
             foreach ($get_event['galleryimages'] as $images) {
@@ -131,14 +129,13 @@ class EventController extends Controller
                     'image' => asset('uploads/events/galleryImages/' . $images['images']),
                 ];
             }
-            unset($get_event['galleryimages']);
-            $get_event['name'] = $get_event->name;
-            $get_event['banner_image'] = asset('uploads/events/bannerImage/'.$get_event['banner_image']);
-            $get_event['gallery'] = $gallery;
-            $get_event['eventdate'] = date("d-M-Y",strtotime($get_event['eventdate']));
-
-            $output['data'] = $get_event;
-            // $output['data'] = $this->allString($get_event);
+            $get_event_data['name'] = $get_event->name;
+            $get_event_data['description'] = $get_event->description;
+            $get_event_data['eventdate'] = date("d-M-Y",strtotime($get_event['eventdate']));
+            $get_event_data['banner_image'] = asset('uploads/events/bannerImage/'.$get_event['banner_image']);
+            $get_event_data['gallery'] = $gallery;
+            
+            $output['data'] = $get_event_data;
             $output['status'] = true;
             $output['status_code'] = 200;
             $output['message'] = "Data Fetch Successfully!";

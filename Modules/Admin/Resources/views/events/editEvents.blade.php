@@ -36,12 +36,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>{{ $title }}</h1>
+                    <h1>{{ $common['title'] }}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item active">{{ $title }}</li>
+                        <li class="breadcrumb-item active">{{ $common['title'] }}</li>
                     </ol>
                 </div>
             </div>
@@ -53,11 +53,11 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title nofloat"> <span>{{ $title}} </span> 
+                            <h3 class="card-title nofloat"> <span>{{ $common['heading_title'] }} </span> 
                             <a href="{{ url('admin/events')}}">
                                 <button onClick="back();"
                                     class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger"
-                                    data-modal="modal-13" style="float: right"> <i class="ti-control-backward m-r-5"></i> Back
+                                    data-modal="modal-13" style="float: right"> <i class="fa-solid fa-backward"></i>&nbsp;&nbsp; Back
                                 </button>
                             </a></h3>
                         </div>
@@ -90,13 +90,13 @@
                                                 <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <div class="form-group mb-3 {{ $errors->has('name') ? 'has-danger' : '' }}">
+                                                            <div class="form-group mb-3 {{ $errors->has('en_name') ? 'has-danger' : '' }}">
                                                                 <label class="col-form-label">{{('Name')}}<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
                                                                 <input
-                                                                    class="form-control {{ $errors->has('name') ? 'form-control-danger' : '' }}"
+                                                                    class="form-control {{ $errors->has('en_name') ? 'form-control-danger' : '' }}"
                                                                     name="en_name" type="text"
-                                                                    value="{{ old('name') }}" placeholder="Enter name"> 
-                                                                @error('name')
+                                                                    value="{{ $events->getTranslation('name', 'en') }}" placeholder="Enter name"> 
+                                                                @error('en_name')
                                                                     <div class="col-form-alert-label">
                                                                         {{ $message }}
                                                                     </div>
@@ -104,13 +104,13 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <div class="form-group mb-3 {{ $errors->has('description') ? 'has-danger' : '' }}">
+                                                            <div class="form-group mb-3 {{ $errors->has('en_description') ? 'has-danger' : '' }}">
                                                                 <label class="col-form-label">Description</label>
                                                                 <textarea
-                                                                class="form-control {{ $errors->has('description') ? 'form-control-danger' : ''}}"
+                                                                class="form-control {{ $errors->has('en_description') ? 'form-control-danger' : ''}}"
                                                                 name="en_description" type="message"
-                                                                    placeholder="Enter Description">{{ old('description') }}</textarea>  
-                                                                @error('description')
+                                                                    placeholder="Enter Description">{{ $events->getTranslation('description', 'en') }}</textarea>  
+                                                                @error('en_description')
                                                                     <div class="col-form-alert-label">
                                                                     {{$message}}
                                                                     </div>
@@ -122,13 +122,13 @@
                                                 <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <div class="form-group mb-3 {{ $errors->has('name') ? 'has-danger' : '' }}">
+                                                            <div class="form-group mb-3 {{ $errors->has('it_name') ? 'has-danger' : '' }}">
                                                                 <label class="col-form-label">{{('Name')}}<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
                                                                 <input
-                                                                    class="form-control {{ $errors->has('name') ? 'form-control-danger' : '' }}"
+                                                                    class="form-control {{ $errors->has('it_name') ? 'form-control-danger' : '' }}"
                                                                     name="it_name" type="text"
-                                                                    value="{{ old('name') }}" placeholder="Enter name"> 
-                                                                @error('name')
+                                                                    value="{{ $events->getTranslation('name', 'it') }}" placeholder="Enter name"> 
+                                                                @error('it_name')
                                                                     <div class="col-form-alert-label">
                                                                         {{ $message }}
                                                                     </div>
@@ -136,13 +136,13 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <div class="form-group mb-3 {{ $errors->has('description') ? 'has-danger' : '' }}">
+                                                            <div class="form-group mb-3 {{ $errors->has('it_description') ? 'has-danger' : '' }}">
                                                                 <label class="col-form-label">Description</label>
                                                                 <textarea
-                                                                class="form-control {{ $errors->has('description') ? 'form-control-danger' : ''}}"
+                                                                class="form-control {{ $errors->has('it_description') ? 'form-control-danger' : ''}}"
                                                                 name="it_description" type="message"
-                                                                    placeholder="Enter Description">{{ old('description') }}</textarea>  
-                                                                @error('description')
+                                                                    placeholder="Enter Description">{{ $events->getTranslation('description', 'it') }}</textarea>  
+                                                                @error('it_description')
                                                                     <div class="col-form-alert-label">
                                                                     {{$message}}
                                                                     </div>
@@ -154,13 +154,13 @@
                                                 <div class="tab-pane fade" id="custom-tabs-four-messages" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <div class="form-group mb-3 {{ $errors->has('name') ? 'has-danger' : '' }}">
+                                                            <div class="form-group mb-3 {{ $errors->has('de_name') ? 'has-danger' : '' }}">
                                                                 <label class="col-form-label">{{('Name')}}<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
                                                                 <input
-                                                                    class="form-control {{ $errors->has('name') ? 'form-control-danger' : '' }}"
+                                                                    class="form-control {{ $errors->has('de_name') ? 'form-control-danger' : '' }}"
                                                                     name="de_name" type="text"
-                                                                    value="{{ old('name') }}" placeholder="Enter name"> 
-                                                                @error('name')
+                                                                    value="{{ $events->getTranslation('name', 'de') }}" placeholder="Enter name"> 
+                                                                @error('de_name')
                                                                     <div class="col-form-alert-label">
                                                                         {{ $message }}
                                                                     </div>
@@ -168,13 +168,13 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <div class="form-group mb-3 {{ $errors->has('description') ? 'has-danger' : '' }}">
+                                                            <div class="form-group mb-3 {{ $errors->has('de_description') ? 'has-danger' : '' }}">
                                                                 <label class="col-form-label">Description</label>
                                                                 <textarea
-                                                                class="form-control {{ $errors->has('description') ? 'form-control-danger' : ''}}"
+                                                                class="form-control {{ $errors->has('de_description') ? 'form-control-danger' : ''}}"
                                                                 name="de_description" type="message"
-                                                                    placeholder="Enter Description">{{ old('description') }}</textarea>  
-                                                                @error('description')
+                                                                    placeholder="Enter Description">{{ $events->getTranslation('description', 'de') }}</textarea>  
+                                                                @error('de_description')
                                                                     <div class="col-form-alert-label">
                                                                     {{$message}}
                                                                     </div>
@@ -186,13 +186,13 @@
                                                 <div class="tab-pane fade" id="custom-tabs-four-settings" role="tabpanel" aria-labelledby="custom-tabs-four-settings-tab">
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <div class="form-group mb-3 {{ $errors->has('name') ? 'has-danger' : '' }}">
+                                                            <div class="form-group mb-3 {{ $errors->has('fr_name') ? 'has-danger' : '' }}">
                                                                 <label class="col-form-label">{{('Name')}}<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
                                                                 <input
-                                                                    class="form-control {{ $errors->has('name') ? 'form-control-danger' : '' }}"
+                                                                    class="form-control {{ $errors->has('fr_name') ? 'form-control-danger' : '' }}"
                                                                     name="fr_name" type="text"
-                                                                    value="{{ old('name') }}" placeholder="Enter name"> 
-                                                                @error('name')
+                                                                    value="{{ $events->getTranslation('name', 'fr') }}" placeholder="Enter name"> 
+                                                                @error('fr_name')
                                                                     <div class="col-form-alert-label">
                                                                         {{ $message }}
                                                                     </div>
@@ -200,13 +200,13 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <div class="form-group mb-3 {{ $errors->has('description') ? 'has-danger' : '' }}">
+                                                            <div class="form-group mb-3 {{ $errors->has('fr_description') ? 'has-danger' : '' }}">
                                                                 <label class="col-form-label">Description</label>
                                                                 <textarea
-                                                                class="form-control {{ $errors->has('description') ? 'form-control-danger' : ''}}"
+                                                                class="form-control {{ $errors->has('fr_description') ? 'form-control-danger' : ''}}"
                                                                 name="fr_description" type="message"
-                                                                    placeholder="Enter Description">{{ old('description') }}</textarea>  
-                                                                @error('description')
+                                                                    placeholder="Enter Description">{{ $events->getTranslation('description', 'fr') }}</textarea>  
+                                                                @error('fr_description')
                                                                     <div class="col-form-alert-label">
                                                                     {{$message}}
                                                                     </div>
@@ -277,7 +277,7 @@
                                             @foreach($events['galleryimages'] as $value)
                                             <li>
                                                 @if($value['event_id'] == $events['id'])
-                                                    <a target="_blank" href="{{ asset('uploads/events/galleryImages/'. $value['images'])}}"><img src="{{ $value['images'] != '' ? asset('uploads/events/galleryImages/'. $value['images']) : asset('assets/upload//placeholder.png') }}"  class="user-img img-css" id="image_1">
+                                                    <a target="_blank" href="{{ asset('uploads/events/galleryImages/'. $value['images'])}}"><img src="{{ $value['images'] != '' ? asset('uploads/events/galleryImages/'. $value['images']) : asset('assets/upload/placeholder.png') }}"  class="user-img img-css" id="image_1">
                                                     </a>&nbsp;
                                                     <a href="{{ url('admin/events/deleteImage/'. $value['id'])}}" title="Delete Image" name="product" title="Delete Gallery Image"> <i class="fa-solid fa-trash" style="color: red;"></i> 
                                                     </a>

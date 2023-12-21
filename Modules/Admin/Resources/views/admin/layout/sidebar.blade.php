@@ -66,7 +66,7 @@
                     </a> 
                 </li>
                 <li class="nav-item"> 
-                    <a href="{{ url('admin/events')}}" class="nav-link {{ Request::is('admin/events') || Request::is('admin/events/add') || Request::is('admin/events/edit/{id}') ? 'active' : ''}}"> <i class="fa-regular fa-calendar-days"></i>&nbsp;&nbsp;
+                    <a href="{{ url('admin/events')}}" class="nav-link {{ Request::is('admin/events') || Request::is('admin/events/add') || Request::is('admin/events/edit/{id}') ? 'active' : ''}}"><i class="fa-regular fa-calendar-days"></i>&nbsp;&nbsp;
                         <p>Events</p>
                     </a> 
                 </li>

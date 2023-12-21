@@ -15,20 +15,23 @@ class LanguageController extends Controller
     //
     public function index()
     {
+        $common = [];
+        $common['title'] = "Languages";
         $languages = Language::where('status','Active')->whereNull('deleted_at')->get();
-        return view('admin::languages.index')->with(compact('languages'));
+        return view('admin::languages.index')->with(compact('common','languages'));
     }
 
     /* -- Add language -- */
     public function addLanguage(Request $request)
     {
-        $title = "Add Languages";
-        $language = new Language;
+        $common = [];
+        $common['title'] = "Languages";
+        $common['heading_title'] = "Add Languages";
+        $common['button'] = "Submit";
         $message = "Language Added Successfully!";
 
         if($request->isMethod('post')){
             $data = $request->all();
-            // echo "<pre>"; print_r($data); die;
 
             $rules = [
                 "name"   => 'required|unique:languages|regex:/^[^\d]+$/|min:2|max:255',
@@ -39,7 +42,8 @@ class LanguageController extends Controller
             if($validator->fails()){
                 return back()->withErrors($validator)->withInput();
             }
-
+            
+            $language = new Language();
             if($request->has('image')){
                 $image = $request->file('image');
                 $name = time().'.'.$image->extension();
@@ -52,20 +56,23 @@ class LanguageController extends Controller
             $language->save();
             return redirect('admin/language')->with('success_message', $message);
         }
-        return view('admin::languages.addlanguage')->with(compact('title', 'language'));
+        return view('admin::languages.addlanguage')->with(compact('common'));
     }
 
     /* -- edit language -- */
     public function editLanguage(Request $request, $id)
     {
+        $common = [];
+        $common['title'] = "Languages";
+        $common['heading_title'] = "Edit Languages";
+        $common['button'] = "Update";
         $title = "Edit Languages";
+        $id = decrypt($id);
         $language = Language::find($id);
-        // return $language;
         $message = "Language Updated Successfully!";
 
         if($request->isMethod('post')){
             $data = $request->all();
-            // echo "<pre>"; print_r($data); die;
 
             $rules = [
                 "name"   => 'required|unique:languages|regex:/^[^\d]+$/|min:2|max:255',
@@ -89,7 +96,7 @@ class LanguageController extends Controller
             $language->save();
             return redirect('admin/language')->with('success_message', $message);
         }
-        return view('admin::languages.editlanguage')->with(compact('title', 'language'));
+        return view('admin::languages.editlanguage')->with(compact('common', 'language'));
     }
 
     public function destroy($id)
@@ -99,48 +106,4 @@ class LanguageController extends Controller
         $language->delete();
         return redirect()->back()->with('success_message', 'Language Deleted Successfully!');  
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('admin::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request): RedirectResponse
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     */
-    public function show($id)
-    {
-        return view('admin::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        return view('admin::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id): RedirectResponse
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
 }

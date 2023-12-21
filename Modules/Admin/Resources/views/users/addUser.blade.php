@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>{{ $title }}</h1>
+                    <h1>{{ $common['title'] }}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item active">{{ $title }}</li>
+                        <li class="breadcrumb-item active">{{ $common['title'] }}</li>
                     </ol>
                 </div>
             </div>
@@ -22,11 +22,11 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title nofloat"> <span>{{ $title}} </span>
+                            <h3 class="card-title nofloat"> <span>{{ $common['heading_title']}} </span>
                             <a href="{{ url('admin/user')}}">
                                 <button onClick="back();"
                                     class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger"
-                                    data-modal="modal-13" style="float: right"> <i class="ti-control-backward m-r-5"></i> Back
+                                    data-modal="modal-13" style="float: right"> <i class="fa-solid fa-backward"></i>&nbsp;&nbsp; Back
                                 </button>
                             </a></h3>
                         </div>
@@ -35,14 +35,13 @@
                             method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
-                                <input type="hidden" name="id" value="{{$user['id']}}">
                                 <div class="col-md-6">
                                     <div class="form-group mb-3 {{ $errors->has('name') ? 'has-danger' : '' }}">
                                         <label class="col-form-label">{{('Name')}}<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
                                         <input
                                             class="form-control {{ $errors->has('name') ? 'form-control-danger' : '' }}"
                                             name="name" type="text"
-                                            value="{{ old('name', $user['name']) }}" placeholder="Enter name">      
+                                            value="{{ old('name') }}" placeholder="Enter name">      
                                         @error('name')
                                             <div class="col-form-alert-label">
                                                 {{ $message }}
@@ -56,7 +55,7 @@
                                         <input
                                             class="form-control {{ $errors->has('email') ? 'form-control-danger' : '' }}"
                                             name="email" type="text"
-                                            value="{{ old('email', $user['email']) }}" placeholder="Enter your email">      
+                                            value="{{ old('email') }}" placeholder="Enter your email">      
                                         @error('email')
                                             <div class="col-form-alert-label">
                                                 {{ $message }}
@@ -104,12 +103,12 @@
                                                     {{-- {{dd($get_countries)}} --}}
                                                     <option value="">+1</option>
                                                     @foreach($get_countries as $value)
-                                                        <option value="{{ $value['phonecode']}}" {{ $value['phonecode'] == $user['country_code'] ? 'selected' : ''}}>{{ $value['phonecode']}}</option>
+                                                        <option value="{{ $value['phonecode']}}">{{ $value['phonecode']}}</option>
                                                     @endforeach
                                                 </select>
                                         </div>
                                             <div class="col-16 pl-0">
-                                        <input placeholder="Enter Phone number" value="{{ old('phone_number', $user['phone_number']) }}" class="form-control" name="phone_number" type="text" value="">
+                                        <input placeholder="Enter Phone number" value="{{ old('phone_number') }}" class="form-control" name="phone_number" type="text" value="">
                                         </div>
                                         </div>
                                     </div>
@@ -120,7 +119,7 @@
                                         <input
                                             class="form-control {{ $errors->has('company_name') ? 'form-control-danger' : '' }}"
                                             name="company_name" type="text"
-                                            value="{{ old('company_name', $user['company_name']) }}" placeholder="Enter Company name">      
+                                            value="{{ old('company_name') }}" placeholder="Enter Company name">      
                                         @error('company_name')
                                             <div class="col-form-alert-label">
                                                 {{ $message }}
@@ -143,7 +142,7 @@
                                     <div class="media-left">
                                         <a href="#" class="profile-image">
                                             <img class="user-img img-css" id="image_1"
-                                                src="{{ $user['image'] != '' ? asset('uploads/userimage/'. $user['image']) : asset('assets/upload/placeholder.png') }}">
+                                                src="{{ asset('assets/upload/placeholder.png') }}">
                                         </a>
                                     </div>
                                 </div>
@@ -168,9 +167,6 @@
                                             <option value="Active">Active</option>
                                             <option value="Pending">Pending</option>
                                             <option value="Reject">Reject</option>
-                                            {{-- <option value="Deactive"
-                                                {{ $user['status'] == 'Deactive' ? 'selected' : '' }}>Deactive
-                                            </option> --}}
                                         </select>
                                         @error('status')
                                             <div class="col-form-alert-label">
@@ -185,7 +181,7 @@
                                         <input
                                             class="form-control {{ $errors->has('status_reason') ? 'form-control-danger' : '' }}"
                                             name="status_reason" type="text"
-                                            value="{{ old('status_reason', $user['status_reason']) }}" placeholder="Enter Status Reason">      
+                                            value="{{ old('status_reason') }}" placeholder="Enter Status Reason">      
                                         @error('status_reason')
                                             <div class="col-form-alert-label">
                                                 {{ $message }}
@@ -219,7 +215,7 @@
                                     placeholder="Enter Image"> 
                                 </div> --}}
                             </div>
-                            <div class="card-footer"> <button type="submit" class="btn btn-primary">Submit</button> </div>
+                            <div class="card-footer"> <button type="submit" class="btn btn-primary">{{$common['button']}}</button> </div>
                             </form>
                         </div>
                     </div>
