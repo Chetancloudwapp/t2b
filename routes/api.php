@@ -50,8 +50,7 @@ Route::group(['middleware'=>['auth:api']], function () {
 
     // news api route
     Route::get('/news_listing', [NewsApiController::class, 'newsListing']);
-    Route::get('/news_detail', [NewsApiController::class, 'newsDetail']);
-
+    Route::post('/news_detail', [NewsApiController::class, 'newsDetail']);
 
 });
 
