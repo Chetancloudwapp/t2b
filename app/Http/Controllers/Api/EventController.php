@@ -55,7 +55,6 @@ class EventController extends Controller
         $events= [];
         $get_events = Event::with('galleryimages')->where('status','Active')->whereNull('deleted_at')->get();
         
-        // echo "<pre>"; print_r($get_events->toArray()); die;
         if(!$get_events->isEmpty()){
             foreach($get_events as $key => $value){
                 $eventArr = [];
@@ -117,9 +116,7 @@ class EventController extends Controller
         }
 
         $get_event = Event::with('galleryimages')->where('id', $event_id)->where('status','Active')->whereNull('deleted_at')->first();
-       
-        // return  $get_event->name;
-        // echo "<pre>"; print_r($get_event); die;
+
         $get_event_data = [];
         if($get_event){
             $gallery = [];

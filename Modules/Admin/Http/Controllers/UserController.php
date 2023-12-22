@@ -36,12 +36,18 @@ class UserController extends Controller
         if($request->isMethod('post')){
             $data = $request->all();
             $rules = [
-                "name" => "required",
-                "email" => "required",
-                "image" => "mimes:jpeg,jpg,png,gif",
+                "name"         => "required|regex:/^[^\d]+$/|min:2|max:255",
+                "email"        => "required|email|unique:users",
+                "company_name" => "required|regex:/^[^\d]+$/|min:2|max:255",
+                "image"        => "required|mimes:jpeg,jpg,png,gif",
+                "password"     => "required|regex:/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/",
+            ];
+
+            $customValidation = [
+                "password.regex" => "password must be at least one uppercase letter, one digit & one special character",
             ];
             
-            $validator = Validator::make($request->all(), $rules);
+            $validator = Validator::make($request->all(), $rules, $customValidation);
             if($validator->fails()){
                 return back()->withErrors($validator)->withInput();
             }
@@ -83,10 +89,9 @@ class UserController extends Controller
 
         if($request->isMethod('post')){
             $data = $request->all();
-            // echo "<pre>"; print_r($data); die;
             $rules = [
-                "name" => "required",
-                "email" => "required",
+                "name" => "required|regex:/^[^\d]+$/|min:2|max:255",
+                "email" => "email",
                 "image" => "mimes:jpeg,jpg,png,gif",
             ];
 
@@ -127,23 +132,7 @@ class UserController extends Controller
         return response()->json($regions);
     }
 
-
-    public function edit($id)
-    {
-        return view('admin::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id): RedirectResponse
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
+    // delete user
     public function destroy($id)
     {
         $user = User::findOrfail($id)->delete();

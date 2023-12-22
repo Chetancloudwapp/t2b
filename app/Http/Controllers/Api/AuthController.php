@@ -48,14 +48,14 @@ class AuthController extends Controller
         if($request->isMethod('post')){
             $userData = $request->input();
             $rules = [
-                "name"         => "required|string|max:255",
+                "name"         => "required|regex:/^[^\d]+$/|min:2|max:255",
                 "email"        => "required|email|unique:users",
-                "country_code" => "required",
-                "phone_number" => "required",
-                "company_name" => "required|string|max:255",
+                "country_code" => "required|integer",
+                "phone_number" => "required|numeric|digits_between:9,15",
+                "company_name" => "required|regex:/^[^\d]+$/|min:2|max:255",
                 "country"      => "required|integer",
                 "region"       => "required|integer",
-                "password"     => "required|min:4|max:6",
+                "password"     => "required|regex:/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/",
                 "confirm_password" => "required|same:password",
                 "fcm_token"    => "required",
                 "device_id"    => "required",
@@ -63,7 +63,13 @@ class AuthController extends Controller
                 "image"        => "mimes:jpeg,jpg,png,gif",
             ];
 
-            $validation = Validator::make($userData, $rules);
+            $customValidation = [
+                "password.regex" => "password must be at least one uppercase letter, one digit & one special character",
+                "name.regex" => "The name must contain only characters.",
+                "company_name" => "The company name must contain only character.",
+            ];
+
+            $validation = Validator::make($userData, $rules, $customValidation);
             if($validation->fails()){
                 return response()->json([
                     'status' => false,
@@ -107,13 +113,16 @@ class AuthController extends Controller
 
                 return response()->json([
                     'status' => true,
-                    'status_code' => 200,
+                    'status_code' => 201,
                     'message' => "User Register Successfully!",
                     'data' => $user,
                 ],201);
             }else{
                 $message = "Something Went Wrong please try again.";
-                return response()->json(['status'=>false, 'message'=> $message],422);
+                return response()->json([
+                    'status'=>false, 
+                    'message'=> $message
+                ],422);
             }
         }
     }
@@ -154,7 +163,7 @@ class AuthController extends Controller
                     'status_code' => 200,
                     'message' => 'User Login Successfully!',
                     'data'   => $user,
-                ], 201);
+                ], 200);
             }else if($user->status == "Reject"){
                 return response()->json([
                     'status' => false,
@@ -192,11 +201,9 @@ class AuthController extends Controller
     public function UserDetail(Request $request)
     {
        $user = Auth::user();
-    //    return $user;
        $user['image'] = url('uploads/userimage/'.$user['image']);
 
        $country = Country::select('id','name')->where('id', $user->country_id)->first();
-    //    return $country;
        if($country){
            $user['country_name'] = $country->name;
        }
@@ -220,11 +227,11 @@ class AuthController extends Controller
     {
         $rules = [
             "image"        => "mimes:jpeg,jpg,png,gif",
-            "name"         => "required|string|max:255",
+            "name"         => "required|regex:/^[^\d]+$/|min:2|max:255",
             "email"        => "email|unique:users",
             "country_code" => "required|integer",
-            "phone_number" => "required|integer|min:6",
-            "company_name" => "required|string|max:255",
+            "phone_number" => "required|numeric|digits_between:9,15",
+            "company_name" => "required|regex:/^[^\d]+$/|min:2|max:255",
             "country_id"   => "required|integer",
             "region"       => "required|integer",
         ];
@@ -278,11 +285,15 @@ class AuthController extends Controller
 
         $rules = [
             "old_password" => "required",
-            "new_password" => "required|min:4|max:12",
+            "new_password" => "required|min:6|regex:/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/",
             "confirm_password" => "required|same:new_password",
         ];
 
-        $validator = Validator::make($request->all(), $rules);
+        $customValidation = [
+            "new_password.regex" => "password must be at least one uppercase letter, one digit & one special character",
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $customValidation);
         if($validator->fails()){
             return response()->json([
                 'status' => false,
@@ -309,10 +320,22 @@ class AuthController extends Controller
 
             }else{
                 $output['status']  = false;
-                $output['status_code'] = 402;
+                $output['status_code'] = 422;
                 $output['message'] = " old password was wrong!";
             }
         }
         return json_encode($output); 
+    }
+
+    public function deleteAccount(Request $request)
+    {
+        $user = auth()->user();
+        $get_user = User::where('id', $user->id)->where('status','Active')->first();
+        $get_user->delete();
+        return response()->json([
+            'status' => true,
+            'status_code' => 200,
+            'message' => "Account Deleted Successfully!."
+        ],200);
     }
 }

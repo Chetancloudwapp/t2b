@@ -38,7 +38,7 @@
                                 <input type="hidden" name="id" value="{{$user['id']}}">
                                 <div class="col-md-6">
                                     <div class="form-group mb-3 {{ $errors->has('name') ? 'has-danger' : '' }}">
-                                        <label class="col-form-label">{{('Name')}}<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
+                                        <label class="col-form-label">{{('Name')}}</label>
                                         <input
                                             class="form-control {{ $errors->has('name') ? 'form-control-danger' : '' }}"
                                             name="name" type="text"
@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group mb-3 {{ $errors->has('email') ? 'has-danger' : '' }}">
-                                        <label class="col-form-label">{{('Email')}}<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
+                                        <label class="col-form-label">{{('Email')}}</label>
                                         <input
                                             class="form-control {{ $errors->has('email') ? 'form-control-danger' : '' }}"
                                             name="email" type="text"
@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group mb-3 {{ $errors->has('country') ? 'has-danger' : '' }}">
-                                        <label class="col-form-label">{{('Country')}}<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
+                                        <label class="col-form-label">{{('Country')}}</label>
                                         <select class="form-control" id="country" name="country">
                                             <option value="">Select Country</option>
                                             @foreach($get_countries as $country)
@@ -83,7 +83,7 @@
                                 </div>
                                  <div class="col-md-6">
                                     <div class="form-group mb-3 {{ $errors->has('region') ? 'has-danger' : '' }}">
-                                        <label class="col-form-label">Region<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
+                                        <label class="col-form-label">Region</label>
                                         <select class="form-control" name="region" id="region">
                                             <option value="0">Select region</option>                                         
                                                 
@@ -97,7 +97,7 @@
                                 </div>  
                                 <div class="col-md-6">
                                     <div class="form-group mb-3">
-                                        <label class="col-form-label">Phone Number<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
+                                        <label class="col-form-label">Phone Number</label>
                                         <div class="row">
                                             <div class="col-2 pr-0"> 
                                                 <select class="form-control" name="country_code" id="country_code">
@@ -115,7 +115,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group mb-3 {{ $errors->has('company_name') ? 'has-danger' : '' }}">
-                                        <label class="col-form-label">{{('Company Name')}}<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
+                                        <label class="col-form-label">{{('Company Name')}}</label>
                                         <input
                                             class="form-control {{ $errors->has('company_name') ? 'form-control-danger' : '' }}"
                                             name="company_name" type="text"
@@ -129,7 +129,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group mb-3 {{ $errors->has('image') ? 'has-danger' : '' }}">
-                                        <label class="col-form-label">Image<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
+                                        <label class="col-form-label">Image</label>
                                         <input type="file"
                                             class="form-control {{ $errors->has('image') ? 'form-control-danger' : '' }}"
                                             onchange="loadFile(event,'image_1')" name="image">
@@ -141,7 +141,7 @@
                                     </div>
                                     <div class="media-left">
                                         <a href="#" class="profile-image">
-                                            <img class="user-img img-css" id="image_1"
+                                            <img class="user-img img-css" id="image_1" style="width:20%;"
                                                 src="{{ $user['image'] != '' ? asset('uploads/userimage/'. $user['image']) : asset('assets/upload/placeholder.png') }}">
                                         </a>
                                     </div>
@@ -163,7 +163,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group mb-3 {{ $errors->has('status_reason') ? 'has-danger' : '' }}">
-                                        <label class="col-form-label">{{('Status Reason')}}<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
+                                        <label class="col-form-label">{{('Status Reason')}}</label>
                                         <input
                                             class="form-control {{ $errors->has('status_reason') ? 'form-control-danger' : '' }}"
                                             name="status_reason" type="text"

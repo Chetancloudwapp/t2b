@@ -31,7 +31,7 @@
                               </div>
                             @endif
                             <h3 class="card-title nofloat"> <span>{{ $common['title'] }}</span>
-                            	<span> <a href="{{ url('admin/events/add') }}"> <button type="button" class="btn btn-block btn-primary"><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;Add Events</button> </a> </span>
+                            	<span> <a href="{{ url('admin/news/add') }}"> <button type="button" class="btn btn-block btn-primary"><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;Add News</button> </a> </span>
                             </h3>
                         </div>
                         <div class="card-body">
@@ -46,25 +46,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($events as $key => $event)
+                                    @foreach($get_news as $key => $news)
                                         <tr>
                                             <td>{{ ++$key }}</td>
                                             <td>
                                                 <img class="tbl-img-css rounded-circle" width="50px"
-                                                src="{{ asset('uploads/events/bannerImage/'. $event['banner_image']) }}">
+                                                src="{{ asset('uploads/news/bannerImage/'. $news['banner_image']) }}">
                                             </td>
-                                            <td>{{ $event->getTranslation('name','en') }}</td>
+                                            <td>{{ $news->getTranslation('title','en') }}</td>
                                             <td>
-                                                @if($event['status'] == 'Active')
-                                                   <span class="badge badge-pill badge-success">{{ $event['status']}}</span>
+                                                @if($news['status'] == 'Active')
+                                                   <span class="badge badge-pill badge-success">{{ $news['status']}}</span>
                                                 @else
-                                                   <span class="badge badge-pill badge-danger">{{ $event['status'] }}</span>
+                                                   <span class="badge badge-pill badge-danger">{{ $news['status'] }}</span>
                                                 @endif
                                             </td>
                                             <td class="text-center">
                                                 {{-- <a href="javascript:;"> <i class="fa-solid fa-eye"></i> </a> --}}
-                                                <a href="{{ url('admin/events/edit/'.$event['id']) }}"> <i class="fa-solid fa-pencil"></i></a>
-                                                <a href="javascript:void(0)" record="events/delete" record_id="{{ $event['id'] }}" class="confirmDelete" name="event" title="Delete event Page"> <i class="fa-solid fa-trash" ></i> </a>
+                                                <a href="{{ url('admin/news/edit/'.$news['id']) }}"> <i class="fa-solid fa-pencil"></i></a>
+                                                <a href="javascript:void(0)" record="news/delete" record_id="{{ $news['id'] }}" class="confirmDelete" name="news" title="Delete news Page"> <i class="fa-solid fa-trash" ></i> </a>
                                             </td>
                                         </tr>
                                     @endforeach

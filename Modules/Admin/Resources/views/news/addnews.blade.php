@@ -23,7 +23,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title nofloat"> <span>{{ $common['heading_title']}} </span> 
-                            <a href="{{ url('admin/events')}}">
+                            <a href="{{ url('admin/news')}}">
                                 <button onClick="back();"
                                     class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger"
                                     data-modal="modal-13" style="float: right"><i class="fa-solid fa-backward"></i>&nbsp;&nbsp; Back
@@ -31,11 +31,11 @@
                             </a></h3>
                         </div>
                         <div class="card-body">
-                            <form name="eventsDetailForm" id="main" 
+                            <form name="newsDetailForm" id="main" 
                             method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
-                                <input type="hidden" name="id" value="{{$events['id']}}">
+                                <input type="hidden" name="id" value="{{$news['id']}}">
                                 <div class="col-md-12">
                                     <div class="card card-primary card-outline card-outline-tabs">
                                         <div class="card-header p-0 border-bottom-0">
@@ -60,7 +60,7 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group mb-3 {{ $errors->has('en_name') ? 'has-danger' : '' }}">
-                                                                <label class="col-form-label">{{('Name')}}*</label>
+                                                                <label class="col-form-label">{{('Title')}}*</label>
                                                                 <input
                                                                     class="form-control {{ $errors->has('en_name') ? 'form-control-danger' : '' }}"
                                                                     name="en_name" type="text"
@@ -76,7 +76,7 @@
                                                             <div class="form-group mb-3 {{ $errors->has('en_description') ? 'has-danger' : '' }}">
                                                                 <label class="col-form-label">Description*</label>
                                                                 <textarea
-                                                                class="form-control {{ $errors->has('en_description') ? 'form-control-danger' : ''}}"
+                                                                class="form-control summernote {{ $errors->has('en_description') ? 'form-control-danger' : ''}}"
                                                                 name="en_description" type="message"
                                                                     placeholder="Enter Description">{{ old('en_description') }}</textarea>  
                                                                 @error('en_description')
@@ -92,7 +92,7 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group mb-3 {{ $errors->has('it_name') ? 'has-danger' : '' }}">
-                                                                <label class="col-form-label">{{('Name')}}*</label>
+                                                                <label class="col-form-label">{{('Title')}}*</label>
                                                                 <input
                                                                     class="form-control {{ $errors->has('it_name') ? 'form-control-danger' : '' }}"
                                                                     name="it_name" type="text"
@@ -108,7 +108,7 @@
                                                             <div class="form-group mb-3 {{ $errors->has('it_description') ? 'has-danger' : '' }}">
                                                                 <label class="col-form-label">Description*</label>
                                                                 <textarea
-                                                                class="form-control {{ $errors->has('it_description') ? 'form-control-danger' : ''}}"
+                                                                class="form-control summernote {{ $errors->has('it_description') ? 'form-control-danger' : ''}}"
                                                                 name="it_description" type="message"
                                                                     placeholder="Enter Description">{{ old('it_description') }}</textarea>  
                                                                 @error('it_description')
@@ -124,7 +124,7 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group mb-3 {{ $errors->has('de_name') ? 'has-danger' : '' }}">
-                                                                <label class="col-form-label">{{('Name')}}*</label>
+                                                                <label class="col-form-label">{{('Title')}}*</label>
                                                                 <input
                                                                     class="form-control {{ $errors->has('de_name') ? 'form-control-danger' : '' }}"
                                                                     name="de_name" type="text"
@@ -140,7 +140,7 @@
                                                             <div class="form-group mb-3 {{ $errors->has('de_description') ? 'has-danger' : '' }}">
                                                                 <label class="col-form-label">Description*</label>
                                                                 <textarea
-                                                                class="form-control {{ $errors->has('de_description') ? 'form-control-danger' : ''}}"
+                                                                class="form-control summernote {{ $errors->has('de_description') ? 'form-control-danger' : ''}}"
                                                                 name="de_description" type="message"
                                                                     placeholder="Enter Description">{{ old('de_description') }}</textarea>  
                                                                 @error('de_description')
@@ -156,7 +156,7 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group mb-3 {{ $errors->has('fr_name') ? 'has-danger' : '' }}">
-                                                                <label class="col-form-label">{{('Name')}}</label>
+                                                                <label class="col-form-label">{{('Title')}}</label>
                                                                 <input
                                                                     class="form-control {{ $errors->has('fr_name') ? 'form-control-danger' : '' }}"
                                                                     name="fr_name" type="text"
@@ -172,7 +172,7 @@
                                                             <div class="form-group mb-3 {{ $errors->has('fr_description') ? 'has-danger' : '' }}">
                                                                 <label class="col-form-label">Description*</label>
                                                                 <textarea
-                                                                class="form-control {{ $errors->has('fr_description') ? 'form-control-danger' : ''}}"
+                                                                class="form-control summernote {{ $errors->has('fr_description') ? 'form-control-danger' : ''}}"
                                                                 name="fr_description" type="message"
                                                                     placeholder="Enter Description">{{ old('fr_description') }}</textarea>  
                                                                 @error('fr_description')
@@ -190,29 +190,15 @@
                                 </div>
                             </div>
                             <div class="row">
-                                {{-- <input type="hidden" name="id" value="{{$events['id']}}"> --}}
-                                <div class="col-md-6">
-                                    <div class="form-group mb-3 {{ $errors->has('eventdate') ? 'has-danger' : '' }}">
-                                        <label class="col-form-label">{{('EventDate')}}</label>
-                                        <input
-                                            class="form-control {{ $errors->has('eventdate') ? 'form-control-danger' : '' }}"
-                                            name="eventdate" type="date"
-                                            value="{{ old('eventdate', $events['eventdate']) }}" placeholder="Enter name">      
-                                        @error('eventdate')
-                                            <div class="col-form-alert-label">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
+                                {{-- <input type="hidden" name="id" value="{{$news['id']}}"> --}}
                                 <div class="col-md-6">
                                     <div class="form-group mb-3 {{ $errors->has('banner_image') ? 'has-danger' : '' }}">
                                         <label class="col-form-label">Banner Image*</label>
                                         <input type="file"
                                             class="form-control {{ $errors->has('banner_image') ? 'form-control-danger' : '' }}"
                                             onchange="loadFile(event,'image_1')" name="banner_image">
-                                        @if(!empty($events['banner_image']))
-                                        <input type="hidden" name="current_image" value="{{ $events['banner_image'] }}">
+                                        @if(!empty($news['banner_image']))
+                                        <input type="hidden" name="current_image" value="{{ $news['banner_image'] }}">
                                         @endif
                                         @error('banner_image')
                                         <div class="col-form-alert-label">
@@ -223,7 +209,7 @@
                                     <div class="media-left">
                                         <a href="#" class="profile-image">
                                         <img class="user-img img-css" id="image_1"
-                                            src="{{ $events['banner_image'] != '' ? asset('uploads/events/bannerImage/'. $events['banner_image']) : asset('assets/upload/placeholder.png') }}">
+                                            src="{{ $news['banner_image'] != '' ? asset('uploads/news/bannerImage/'. $news['banner_image']) : asset('assets/upload/placeholder.png') }}">
                                         </a>
                                     </div>
                                 </div>
@@ -241,10 +227,10 @@
                                     </div>
                                     <div class="media-left">
                                         <ul class="multiImg">
-                                            {{-- @foreach($events['images'] as $value)
+                                            {{-- @foreach($news['images'] as $value)
                                             <li>
                                                 @if($value['product_id'] == $products['id'])
-                                                    <a target="_blank" href="{{ asset('uploads/events/galleryImages/'. $value['image'])}}"><img src="{{ $value['image'] != '' ? asset('uploads/products/galleryImages/small/'. $value['image']) : asset('assets/upload//placeholder.png') }}"  class="user-img img-css" id="image_1">
+                                                    <a target="_blank" href="{{ asset('uploads/news/galleryImages/'. $value['image'])}}"><img src="{{ $value['image'] != '' ? asset('uploads/products/galleryImages/small/'. $value['image']) : asset('assets/upload//placeholder.png') }}"  class="user-img img-css" id="image_1">
                                                     </a>&nbsp;
                                                     <a href="{{ url('admin/product/deleteImage/'. $value['id'])}}" title="Delete Image" name="product" title="Delete Product Image"> <i class="fa-solid fa-trash" style="color: red;"></i> 
                                                     </a>
@@ -252,6 +238,34 @@
                                             </li>
                                             @endforeach --}}
                                         </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3 {{ $errors->has('latitude') ? 'has-danger' : '' }}">
+                                        <label class="col-form-label">{{('Latitude')}}</label>
+                                        <input
+                                            class="form-control {{ $errors->has('latitude') ? 'form-control-danger' : '' }}"
+                                            name="latitude" type="text"
+                                            value="{{ old('latitude') }}" placeholder="Enter Latitude"> 
+                                        @error('latitude')
+                                            <div class="col-form-alert-label">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>                            
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3 {{ $errors->has('longitude') ? 'has-danger' : '' }}">
+                                        <label class="col-form-label">{{('Longitude')}}</label>
+                                        <input
+                                            class="form-control {{ $errors->has('longitude') ? 'form-control-danger' : '' }}"
+                                            name="longitude" type="text"
+                                            value="{{ old('longitude') }}" placeholder="Enter longitude"> 
+                                        @error('longitude')
+                                            <div class="col-form-alert-label">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>                            
                                 <div class="col-md-6">
@@ -262,7 +276,7 @@
                                             {{-- <option value="Pending">Pending</option> --}}
                                             {{-- <option value="Reject">Reject</option> --}}
                                             <option value="Deactive"
-                                                {{ $events['status'] == 'Deactive' ? 'selected' : '' }}>Deactive
+                                                {{ $news['status'] == 'Deactive' ? 'selected' : '' }}>Deactive
                                             </option>
                                         </select>
                                         @error('status')
@@ -282,28 +296,5 @@
         </div>
     </section>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript">
-   $(document).ready(function () {
-      $('#country').change(function () {
-         var countryId = $(this).val();  
-        //  alert(countryId);       
-         $.ajax({
-            url: "{{ url('admin/get-regions')}}", 
-            method: 'POST',
-            data: { country_id : countryId, _token: "{{ csrf_token() }}"},
-            success: function (data) {
-            //    alert(data);
-               var regionDropdown = $('#region');
-               regionDropdown.empty(); 
-               regionDropdown = $('#region').html('<option value="">Select Region</option>'); 
-               $.each(data, function (key, value) {
-                  regionDropdown.append($('<option value="">Select Region</option>').attr('value', key).text(value));
-               });
-            }
-         });
-      });
-   });
-</script>
 @endsection
 

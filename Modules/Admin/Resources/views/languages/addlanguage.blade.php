@@ -37,11 +37,11 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group mb-3 {{ $errors->has('name') ? 'has-danger' : '' }}">
-                                            <label class="col-form-label">Name</label>
+                                            <label class="col-form-label">Name*</label>
                                             <input
                                                 class="form-control {{ $errors->has('name') ? 'form-control-danger' : '' }}"
                                                 name="name" type="text"
-                                                value="{{ old('name') }}" placeholder="Enter name">      
+                                                value="{{ old('name') }}" required="" placeholder="Enter name">      
                                             @error('name')
                                                 <div class="col-form-alert-label">
                                                     {{ $message }}
@@ -51,10 +51,10 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3 {{ $errors->has('image') ? 'has-danger' : '' }}">
-                                            <label class="col-form-label">Image</label>
+                                            <label class="col-form-label">Image*</label>
                                             <input type="file"
                                                 class="form-control {{ $errors->has('image') ? 'form-control-danger' : '' }}"
-                                                onchange="loadFile(event,'image_1')" name="image">
+                                                onchange="loadFile(event,'image_1')" required="" name="image">
                                             @error('image')
                                                 <div class="col-form-alert-label">
                                                     {{ $message }}

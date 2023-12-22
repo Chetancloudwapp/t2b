@@ -51,14 +51,16 @@ Route::prefix('admin')->group(function() {
         Route::match(['get','post'], '/region/edit/{id}', 'CountryController@editRegion');
         Route::match(['get','post'], '/region/delete/{id}', 'CountryController@destroy');
         
-        // Event Route
+        // Event route
         Route::match(['get','post'], '/events', 'EventAdminController@index');
         Route::match(['get','post'], '/events/add', 'EventAdminController@addEvents');
         Route::match(['get','post'], '/events/edit/{id}', 'EventAdminController@editEvents');
         Route::match(['get','post'], '/events/delete/{id}', 'EventAdminController@destroy');
         Route::match(['get', 'post'], '/events/deleteImage/{id}', 'EventAdminController@deleteEventImages');
 
-        
+        // News route
+        Route::match(['get','post'], '/news', 'NewsAdminController@index');
+        Route::match(['get','post'], '/news/add', 'NewsAdminController@addNews');
     });
 });
 

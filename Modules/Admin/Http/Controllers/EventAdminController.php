@@ -63,15 +63,15 @@ class EventAdminController extends Controller
             ];
 
             $customValidation = [
-                "en_name.required"      => "Name is required",
-                "en_description"        => "Description is required",
-                "it_name.required"      => "Name is required",
-                "it_description"        => "Description is required",
-                "de_name.required"      => "Name is required",
-                "de_description"        => "Description is required",
-                "fr_name.required"      => "Name is required",
-                "fr_description"        => "Description is required",
-                "banner_image.required" => "Image is required",
+                "en_name.required"      => "The name field is required",
+                "en_description"        => "The description field is required",
+                "it_name.required"      => "The name field is required",
+                "it_description"        => "The description field is required",
+                "de_name.required"      => "The name field is required",
+                "de_description"        => "The description field is required",
+                "fr_name.required"      => "The name field is required",
+                "fr_description"        => "The description field is required",
+                "banner_image.required" => "The image field is required",
             ];
 
             $validator = Validator::make($request->all(), $rules, $customValidation);

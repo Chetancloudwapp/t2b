@@ -37,11 +37,11 @@
                                     <input type="hidden" name="id" value="{{$language['id']}}">
                                     <div class="col-md-6">
                                         <div class="form-group mb-3 {{ $errors->has('name') ? 'has-danger' : '' }}">
-                                            <label class="col-form-label">{{('Name')}}<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
+                                            <label class="col-form-label">Name*</label>
                                             <input
                                                 class="form-control {{ $errors->has('name') ? 'form-control-danger' : '' }}"
                                                 name="name" type="text"
-                                                value="{{ old('name', $language['name']) }}" placeholder="Enter name">      
+                                                value="{{ old('name', $language['name']) }}" required="" placeholder="Enter name">      
                                             @error('name')
                                                 <div class="col-form-alert-label">
                                                     {{ $message }}
@@ -51,7 +51,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3 {{ $errors->has('image') ? 'has-danger' : '' }}">
-                                            <label class="col-form-label">Image<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
+                                            <label class="col-form-label">Image</label>
                                             <input type="file"
                                                 class="form-control {{ $errors->has('image') ? 'form-control-danger' : '' }}"
                                                 onchange="loadFile(event,'image_1')" name="image">

@@ -38,7 +38,7 @@
                                    
                                     <div class="col-md-6">
                                         <div class="form-group mb-3 {{ $errors->has('country') ? 'has-danger' : '' }}">
-                                            <label class="col-form-label">{{('Country')}}<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
+                                            <label class="col-form-label">{{('Country')}}*</label>
                                             <select class="form-control" id="country" name="country">
                                                 <option value="">Select Country</option>
                                                 @foreach($get_countries as $country)
@@ -55,7 +55,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3 {{ $errors->has('name') ? 'has-danger' : '' }}">
-                                            <label class="col-form-label">{{('Name')}}<span class="mandatory cls" style="color:red; font-size:15px">*</span></label>
+                                            <label class="col-form-label">{{('Name')}}*</label>
                                             <input
                                                 class="form-control {{ $errors->has('name') ? 'form-control-danger' : '' }}"
                                                 name="name" type="text"
