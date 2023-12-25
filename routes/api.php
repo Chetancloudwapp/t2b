@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CommonController;
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\NewsApiController;
+use App\Http\Controllers\Api\OfferApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,10 +53,11 @@ Route::group(['middleware'=>['auth:api']], function () {
     Route::get('/news_listing', [NewsApiController::class, 'newsListing']);
     Route::post('/news_detail', [NewsApiController::class, 'newsDetail']);
 
+    // create offer
+    Route::post('/create_offer', [OfferApiController::class, 'createOffer']);
+    Route::post('/offer-listing', [OfferApiController::class, 'OfferListing']);
+    Route::post('/offer-detail', [OfferApiController::class, 'OfferDetails']);
+
 });
 
-// Route::group(['prefix' => '{locale}'], function () {
-//     // Route::get('/event_listing', [EventController::class, 'eventListing']);
-//     Route::post('/event_detail', [EventController::class, 'eventDetail']);
-// });
 
