@@ -29,7 +29,7 @@ class NewsApiController extends Controller
             app()->setLocale($request->lang);
         }
         $news= [];
-        $get_news = News::with('galleryimages')->where('status','Active')->get();
+        $get_news = News::with('galleryimages')->where('status','Active')->paginate(10);
         if(!$get_news->isEmpty()){
             foreach($get_news as $key => $value){
                 $newsArr = [];

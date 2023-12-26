@@ -76,6 +76,11 @@
                     </a> 
                 </li>
                 <li class="nav-item"> 
+                    <a href="{{ url('admin/photos')}}" class="nav-link {{ Request::is('admin/photos') || Request::is('admin/photos/add') || Request::is('admin/photos/edit/{id}') ? 'active' : ''}}"><i class="fa-solid fa-image"></i>&nbsp;&nbsp;
+                        <p>Photos</p>
+                    </a> 
+                </li>
+                <li class="nav-item"> 
                     <a href="{{ url('admin/countries')}}" class="nav-link {{ Request::is('admin/countries') ? 'active' : ''}}"> <i class="fa-solid fa-globe"></i>&nbsp;&nbsp;
                         <p>Countries</p>
                     </a> 

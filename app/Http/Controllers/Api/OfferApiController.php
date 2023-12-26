@@ -98,7 +98,7 @@ class OfferApiController extends Controller
 
         $user = auth()->user();
         $offer = [];
-        $get_offer = DB::table('offers')->get();
+        $get_offer = DB::table('offers')->paginate(10);
         // return $get_offer;
         if(!$get_offer->isEmpty()){
             foreach($get_offer as $key => $value){
@@ -137,24 +137,24 @@ class OfferApiController extends Controller
 
         $user = auth()->user();
         $offer_detail = Offer::where('user_id', $user->id)->first();
-        
-        // get name and company name
-        $offer_detail['name'] = "";
-        $offer_detail['company_name'] = "";
-        $get_data = User::where('id', $offer_detail->user_id)->where('status', 'Active')->first();
-        // return $get_data;
-        if(!empty($get_data)){
-            $offer_detail['name'] = $get_data->name;
-            $offer_detail['company_name'] = $get_data->company_name;
+        if(!empty($offer_detail)){
+            $offer_detail['image'] = asset('uploads/offers/'.$offer_detail->image);
 
+            // get name and company name
+            $offer_detail['name'] = "";
+            $offer_detail['company_name'] = "";
+            $get_data = User::where('id', $offer_detail->user_id)->where('status', 'Active')->first();
+            if(!empty($get_data)){
+                $offer_detail['name']  = $get_data->name;
+                $offer_detail['company_name'] = $get_data->company_name;
+            }
+    
             $offer_detail = $this->allString($offer_detail);
-
             $output['data'] = $offer_detail;
             $output['status'] = true;
             $output['status_code'] = 200;
-            $output['message'] = "Detail Fetch Successfully!";
-        }
+            $output['message'] = "Offer Details Fetch Successfully!";
+        }   
         return json_encode($output);
-
     }
 }

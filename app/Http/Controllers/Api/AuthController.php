@@ -197,6 +197,54 @@ class AuthController extends Controller
             'message'=> $message]);
     }
 
+    /* --- members list--- */
+    public function MemberListing()
+    {
+        $output = [];
+        $output['status'] = false;
+        $output['status_code'] = 422;
+        $output['message'] = "Something Went Wrong";
+        $output['data'] = "";
+
+        $user_data = [];
+        $user = auth()->user();
+        $get_user = DB::table('users')->where('status', 'Active')->where(['country_id'=> $user->country_id, 'region'=> $user->region])->get();
+        if(!$get_user->isEmpty()){
+            foreach($get_user as $key => $value){
+                $userArr = [];
+                $userArr['id']    = $value->id;
+                $userArr['name']  = $value->name;
+                $userArr['email'] = $value->email;
+                $userArr['status'] = $value->status;
+                $userArr['image'] = asset('uploads/userimage/'.$value->image);
+                $userArr['country_code'] = $value->country_code;
+                $userArr['phone_number'] = $value->phone_number;
+                $userArr['company_name'] = $value->company_name;
+
+                // get country
+                $userArr['country'] = "";
+                $get_country = Country::select('id','name')->where('id', $value->country_id)->first();
+                if(!empty($get_country)){
+                    $userArr['country'] = $get_country->name;
+                }
+
+                // get region
+                $userArr['region'] = "";
+                $get_region = Region::where('id', $value->region)->first();
+                if(!empty($get_region)){
+                    $userArr['region'] = $get_region->name;
+                }
+                $user_data[] = $userArr;
+            }
+
+            $output['data'] = $user_data;
+            $output['status'] = true;
+            $output['status_code'] = 200;
+            $output['message'] = "Data Fetch Successfully!";
+        }
+        return json_encode($output);
+    }
+
     /* --- User Detail Api --- */
     public function UserDetail(Request $request)
     {

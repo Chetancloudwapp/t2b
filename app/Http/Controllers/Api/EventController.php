@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Modules\Admin\Entities\Event;
 use Modules\Admin\Entities\EventImage;
+use App\Models\EventFeedback;
 use Validator;
 use Hash;
 use Image;
@@ -53,7 +54,7 @@ class EventController extends Controller
             app()->setLocale($request->lang);
         }
         $events= [];
-        $get_events = Event::with('galleryimages')->where('status','Active')->whereNull('deleted_at')->get();
+        $get_events = Event::with('galleryimages')->where('status','Active')->whereNull('deleted_at')->paginate(10);
         
         if(!$get_events->isEmpty()){
             foreach($get_events as $key => $value){
@@ -108,6 +109,8 @@ class EventController extends Controller
             ],422);
         }
 
+        // $event_feedback = new EventFeedback();
+
         $get_events = [];
         $event_id = $request->event_id;
        
@@ -116,6 +119,7 @@ class EventController extends Controller
         }
 
         $get_event = Event::with('galleryimages')->where('id', $event_id)->where('status','Active')->whereNull('deleted_at')->first();
+        // return $get_event;
 
         $get_event_data = [];
         if($get_event){
@@ -137,6 +141,39 @@ class EventController extends Controller
             $output['status_code'] = 200;
             $output['message'] = "Data Fetch Successfully!";
         }
+        return json_encode($output);
+    }
+
+    public function eventFeedback(Request $request)
+    {
+        $output = [];
+        $output['status'] = false;
+        $output['status_code'] = 422;
+        $output['message'] = "Something Went Wrong";
+
+        $rules = [
+            "event_id" => "required|numeric",
+            "status"   => "required|in:yes,no,maybe",
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails()){
+            return response()->json([
+                'status' => false,
+                'message' => $validator->errors()->first(),
+            ],422);
+        }
+
+        $user = auth()->user();
+        $event_feedback = new EventFeedback;
+        $event_feedback->event_id = $request->event_id;
+        $event_feedback->user_id = $user->id;
+        $event_feedback->response = $request->status;
+        $event_feedback->save();
+
+        $output['status'] = true;
+        $output['status_code'] = 200;
+        $output['message'] = "Event Feedback Sent Successfully!";
         return json_encode($output);
     }
 }

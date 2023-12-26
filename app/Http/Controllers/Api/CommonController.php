@@ -70,10 +70,11 @@ class CommonController extends Controller
         $get_region = [];
         $country_id = $request->country_id;
         $get_regions = Region::where('country', $country_id)->get();
+        // return $get_regions;
         if(!$get_regions->isEmpty()){
             foreach($get_regions as $key => $value){
                 $regionArr = [];
-                $regionArr['country_id'] = $value['country'];
+                $regionArr['id'] = $value['id'];
                 $regionArr['region'] = $value['name'];
                 $regionArr['country_name'] = "";
 

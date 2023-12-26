@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\CommonController;
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\NewsApiController;
 use App\Http\Controllers\Api\OfferApiController;
+use App\Http\Controllers\Api\PhotosApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,7 @@ Route::group(['middleware'=>['auth:api']], function () {
     
     // Authorized route
     Route::post('/logout_user', [AuthController::class, 'LogoutUser']);
+    Route::get('/member-listing', [AuthController::class, 'MemberListing']);
     Route::get('/user_detail', [AuthController::class,'UserDetail']);
     Route::post('/user_profile_update', [AuthController::class,'UserProfileUpdate']);
     Route::post('/change_password', [AuthController::class, 'changePassword']);
@@ -47,16 +49,21 @@ Route::group(['middleware'=>['auth:api']], function () {
 
     // Events route
     Route::get('/event_listing', [EventController::class, 'eventListing']);
-    Route::post('/event_detail', [EventController::class, 'eventDetail']);
+    Route::get('/event_detail', [EventController::class, 'eventDetail']);
+    Route::post('/event_feedback', [EventController::class, 'eventFeedback']);
 
     // news api route
     Route::get('/news_listing', [NewsApiController::class, 'newsListing']);
     Route::post('/news_detail', [NewsApiController::class, 'newsDetail']);
 
     // create offer
-    Route::post('/create_offer', [OfferApiController::class, 'createOffer']);
+    Route::post('/create-offer', [OfferApiController::class, 'createOffer']);
     Route::post('/offer-listing', [OfferApiController::class, 'OfferListing']);
     Route::post('/offer-detail', [OfferApiController::class, 'OfferDetails']);
+
+    // photos
+    Route::post('/photos-listing', [PhotosApiController::class, 'photosListing']);
+    Route::post('/photos-detail', [PhotosApiController::class, 'photosDetail']);
 
 });
 

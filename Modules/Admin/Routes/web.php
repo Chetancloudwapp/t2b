@@ -61,6 +61,12 @@ Route::prefix('admin')->group(function() {
         // News route
         Route::match(['get','post'], '/news', 'NewsAdminController@index');
         Route::match(['get','post'], '/news/add', 'NewsAdminController@addNews');
+
+        // photos
+        Route::match(['get','post'], '/photos', 'PhotosController@index');
+        Route::match(['get','post'], '/photos/add', 'PhotosController@addPhotos');
+        Route::match(['get','post'], '/photos/edit/{id}', 'PhotosController@editPhotos');
+        Route::match(['get','post'], '/photos/delete/{id}', 'PhotosController@destroy');
     });
 });
 
