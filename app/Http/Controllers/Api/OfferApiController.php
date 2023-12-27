@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Modules\Admin\Entities\Country;
+use Modules\Admin\Entities\Region;
 use App\Models\OfferImage;
 use App\Models\Offer;
 use App\Models\User;
@@ -50,7 +52,9 @@ class OfferApiController extends Controller
         $rules = [
             "contact_email"  => "required|email",
             "offer_detail"   => "required",
-            // "images"          => "required|mimes:jpeg,jpg,png,gif",
+            "country_id"     => "required|numeric",
+            "region"         => "required|numeric",
+            // "images"      => "required|mimes:jpeg,jpg,png,gif",
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -62,29 +66,42 @@ class OfferApiController extends Controller
         }
 
         $user = auth()->user();
-        $get_offer = new Offer();
 
-         // Upload Banner Image
-         if($request->hasFile('image')){
-            $image_tmp = $request->file('image');
-                if($image_tmp->isValid()){
-                    $extension = $image_tmp->getClientOriginalExtension();
-                    $imageName = rand(111,99999).'.'.$extension;
-                    $image_path = public_path('uploads/offers/'.$imageName);
+        $existingOffer = Offer::where('user_id', $user->id)->first();
 
-                    // upload images
-                    Image::make($image_tmp)->resize(520, 600)->save($image_path);
+        if(!empty($existingOffer)){
+             return response()->json([
+                'status' => false,
+                'status_code' => 422,
+                'message' => "Offers has already been Created!!",
+            ],422);
+        }else{
+            $get_offer = new Offer();
+    
+             // Upload Banner Image
+             if($request->hasFile('image')){
+                $image_tmp = $request->file('image');
+                    if($image_tmp->isValid()){
+                        $extension = $image_tmp->getClientOriginalExtension();
+                        $imageName = rand(111,99999).'.'.$extension;
+                        $image_path = public_path('uploads/offers/'.$imageName);
+    
+                        // upload images
+                        Image::make($image_tmp)->resize(520, 600)->save($image_path);
+                    }
                 }
-            }
-        $get_offer->image = $imageName;
-        $get_offer->user_id = $user->id;
-        $get_offer->contact_email = $request->contact_email;
-        $get_offer->offer_detail = $request->offer_detail;
-        $get_offer->save();
+            $get_offer->image = $imageName;
+            $get_offer->user_id = $user->id;
+            $get_offer->country_id = $request->country_id;
+            $get_offer->region = $request->region;
+            $get_offer->contact_email = $request->contact_email;
+            $get_offer->offer_detail = $request->offer_detail;
+            $get_offer->save();
+            $output['status'] = true;
+            $output['status_code'] = 200;
+            $output['message'] = "Offer Created Successfully!";
+        }
 
-        $output['status'] = true;
-        $output['status_code'] = 200;
-        $output['message'] = "Offer Created Successfully!";
         return json_encode($output);
     }
 
@@ -97,9 +114,12 @@ class OfferApiController extends Controller
         $output['data'] = "";
 
         $user = auth()->user();
+        // return $user;
         $offer = [];
-        $get_offer = DB::table('offers')->paginate(10);
-        // return $get_offer;
+        $get_offer = DB::table('offers')
+                  ->where(['country_id'=> $user->country_id, 'region' => $user->region])
+                  ->get();
+
         if(!$get_offer->isEmpty()){
             foreach($get_offer as $key => $value){
                 $offerArr = [];
@@ -108,12 +128,24 @@ class OfferApiController extends Controller
                 $offerArr['image'] = asset('uploads/offers/'.$value->image);
                 
                 // get name and company name
-                $offerArr['name'] = "";
-                $offerArr['company_name'] = "";
-                $get_data = User::where('id', $value->user_id)->where('status', 'Active')->first();
+                $offerArr['name'] = $user->name;
+                $offerArr['company_name'] = $user->company_name;
+                $offerArr['country'] = "";
+                $offerArr['region']  = "";
+
+                // get country name
+                $get_data = Country::select('id', 'name')->where('id', $value->country_id)
+                             ->where('is_show', 1)
+                             ->first();
                 if(!empty($get_data)){
-                    $offerArr['name'] = $get_data->name;
-                    $offerArr['company_name'] = $get_data->company_name;
+                    $offerArr['country'] = $get_data->name;
+                }
+
+                // get region name
+                $get_region = Region::select('id', 'name')->where('id', $value->region)
+                             ->first();
+                if(!empty($get_region)){
+                    $offerArr['region'] = $get_region->name;
                 }
                 $offerArr['contact_email'] = $value->contact_email;
                 $offer[] = $offerArr;

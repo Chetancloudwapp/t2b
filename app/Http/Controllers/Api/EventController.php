@@ -50,11 +50,14 @@ class EventController extends Controller
         $output['message'] = "Something Went Wrong";
         $output['data'] = "";
 
+        $user = auth()->user();
+        // return $user;
         if(isset($request->lang) && !empty($request->lang)){
             app()->setLocale($request->lang);
         }
         $events= [];
-        $get_events = Event::with('galleryimages')->where('status','Active')->whereNull('deleted_at')->paginate(10);
+        $get_events = Event::with('galleryimages')->where('status','Active')->where(['country_id'=> $user->country_id, 'region'=> $user->region])->get();
+        // return $get_events;
         
         if(!$get_events->isEmpty()){
             foreach($get_events as $key => $value){
@@ -163,17 +166,31 @@ class EventController extends Controller
                 'message' => $validator->errors()->first(),
             ],422);
         }
-
         $user = auth()->user();
-        $event_feedback = new EventFeedback;
-        $event_feedback->event_id = $request->event_id;
-        $event_feedback->user_id = $user->id;
-        $event_feedback->response = $request->status;
-        $event_feedback->save();
 
-        $output['status'] = true;
-        $output['status_code'] = 200;
-        $output['message'] = "Event Feedback Sent Successfully!";
+        // check if the user has already submitted feedback for this event
+        $existingFeedback = EventFeedback::where(['event_id'=> $request->event_id, 'user_id' => $user->id])->first();
+
+        if(!empty($existingFeedback)){
+            $output['status']      = false;
+            $output['status_code'] = 422;
+            $output['message']     = "Event Feedback has already been Submitted!";
+            return json_encode($output);
+
+            // return response()->json([
+            //     'status' => false,
+            //     'message' => "Event Feedback has already been Submitted!",
+            // ],421);
+        }else{
+            $event_feedback = new EventFeedback;
+            $event_feedback->event_id = $request->event_id;
+            $event_feedback->user_id  = $user->id;
+            $event_feedback->response = $request->status;
+            $event_feedback->save();
+            $output['status']      = true;
+            $output['status_code'] = 200;
+            $output['message']     = "Event Feedback Sent Successfully!";
+        }
         return json_encode($output);
     }
 }

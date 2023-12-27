@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\Admin\Entities\Event;
 use Modules\Admin\Entities\EventImage;
+use Modules\Admin\Entities\Country;
 use Modules\Admin\Entities\Language;
 use Validator;
 use Image;
@@ -45,6 +46,8 @@ class EventAdminController extends Controller
             ],
         ]);
         $message = "Events Added Successfully!";
+
+        $get_countries = Country::where('is_show', '1')->get();
 
         if($request->isMethod('post')){
             $data = $request->all();
@@ -116,6 +119,8 @@ class EventAdminController extends Controller
             //         $events->description = $data['fr_description'];
             // }
 
+            $events->country_id = $data['country'];
+            $events->region = $data['region'];
             $events->eventdate = $data['eventdate'];
             $events->status = $data['status'];
             $events->save();
@@ -147,7 +152,7 @@ class EventAdminController extends Controller
             }
             return redirect('admin/events')->with('success_message', $message);
         }
-        return view('admin::events.addEvents')->with(compact('common', 'events'));
+        return view('admin::events.addEvents')->with(compact('common', 'events','get_countries'));
     }
 
 
@@ -160,6 +165,8 @@ class EventAdminController extends Controller
         $common['button'] = "Update";
         $events = Event::with('galleryimages')->find($id);
         $message = "Events Updated Successfully!";
+
+        $get_countries = Country::where('is_show', '1')->get();
 
         if($request->isMethod('post')){
             $data = $request->all();
@@ -222,6 +229,9 @@ class EventAdminController extends Controller
                     $imageName = "";
                 }
             $events->banner_image = $imageName;
+
+            $events->country_id = $data['country'];
+            $events->region = $data['region'];
             $events->eventdate = $data['eventdate'];
             $events->status = $data['status'];
             $events->save();
@@ -252,7 +262,7 @@ class EventAdminController extends Controller
             }
             return redirect('admin/events')->with('success_message', $message);
         }
-        return view('admin::events.editEvents')->with(compact('common', 'events'));
+        return view('admin::events.editEvents')->with(compact('common', 'events','get_countries'));
     }
 
     // delete event images 

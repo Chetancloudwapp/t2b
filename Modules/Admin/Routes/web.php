@@ -57,17 +57,36 @@ Route::prefix('admin')->group(function() {
         Route::match(['get','post'], '/events/edit/{id}', 'EventAdminController@editEvents');
         Route::match(['get','post'], '/events/delete/{id}', 'EventAdminController@destroy');
         Route::match(['get', 'post'], '/events/deleteImage/{id}', 'EventAdminController@deleteEventImages');
-
+        
         // News route
         Route::match(['get','post'], '/news', 'NewsAdminController@index');
         Route::match(['get','post'], '/news/add', 'NewsAdminController@addNews');
+        Route::match(['get','post'], '/news/edit/{id}', 'NewsAdminController@editNews');
+        Route::match(['get','post'], '/news/delete/{id}', 'NewsAdminController@destroy');
+        Route::match(['get', 'post'], '/news/deleteImage/{id}', 'NewsAdminController@deleteNewsImages');
 
         // photos
         Route::match(['get','post'], '/photos', 'PhotosController@index');
         Route::match(['get','post'], '/photos/add', 'PhotosController@addPhotos');
         Route::match(['get','post'], '/photos/edit/{id}', 'PhotosController@editPhotos');
         Route::match(['get','post'], '/photos/delete/{id}', 'PhotosController@destroy');
+        Route::match(['get', 'post'], '/photos/deleteImage/{id}', 'PhotosController@deletePhotosGallery');
+
     });
+});
+
+Route::get('clear', function() {
+   
+    Artisan::call('config:clear');
+    Artisan::call('cache:clear');
+    Artisan::call('config:cache');
+
+    Artisan::call('route:clear');
+    Artisan::call('view:clear');
+    Artisan::call('optimize:clear');
+    // Artisan::call('dump-autoload');
+
+    return "Cleared!";
 });
 
 

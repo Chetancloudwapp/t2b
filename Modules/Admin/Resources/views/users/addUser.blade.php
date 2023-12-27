@@ -80,7 +80,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                 <div class="col-md-6">
+                                <div class="col-md-6">
                                     <div class="form-group mb-3 {{ $errors->has('region') ? 'has-danger' : '' }}">
                                         <label class="col-form-label">Region</label>
                                         <select class="form-control" name="region" id="region">

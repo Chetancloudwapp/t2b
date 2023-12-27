@@ -190,4 +190,25 @@ class PhotosController extends Controller
         return redirect()->back()->with('success_message', 'Photos Deleted Successfully!');  
     }
 
+    // delete photos gallery
+    public function deletePhotosGallery($id)
+    {
+        $galleryImage = PhotoGallery::where('id', $id)->first();
+        // return $galleryImage;
+        
+        /* --- get the path of gallery image */
+        $image_path = public_path('uploads/photos/');
+      
+
+        if(file_exists($image_path.$galleryImage->images)){
+            unlink($image_path.$galleryImage->images);
+        }
+
+        /* --- Delete gallery images --- */
+        $galleryImage = PhotoGallery::where('id', $id)->delete();       
+        $message = "Gallery Image has been deleted Successfully!";
+        return back()->with('success_message', $message);
+   
+    }
+
 }

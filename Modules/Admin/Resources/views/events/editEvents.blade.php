@@ -223,6 +223,37 @@
                             <div class="row">
                                 {{-- <input type="hidden" name="id" value="{{$events['id']}}"> --}}
                                 <div class="col-md-6">
+                                    <div class="form-group mb-3 {{ $errors->has('country') ? 'has-danger' : '' }}">
+                                        <label class="col-form-label">{{('Country')}}</label>
+                                        <select class="form-control" id="country" name="country">
+                                            <option value="">Select Country</option>
+                                            @foreach($get_countries as $country)
+                                                <option value="{{ $country['id']}}" {{ $country['id'] == $events['country_id'] ? 'selected' : ''}}>{{ $country['name']}}</option>
+                                                {{-- <option value="{{ $country['id']}}">{{ $country['name']}}</option> --}}
+                                            @endforeach
+                                        </select>
+                                        @error('country')
+                                            <div class="col-form-alert-label">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3 {{ $errors->has('region') ? 'has-danger' : '' }}">
+                                        <label class="col-form-label">Region</label>
+                                        <select class="form-control" name="region" id="region">
+                                            <option value="0">Select region</option>                                         
+                                                
+                                        </select>
+                                        @error('region')
+                                              <div class="col-form-alert-label">
+                                                  {{$message}}
+                                             </div>  
+                                        @enderror
+                                    </div>
+                                </div> 
+                                <div class="col-md-6">
                                     <div class="form-group mb-3 {{ $errors->has('eventdate') ? 'has-danger' : '' }}">
                                         <label class="col-form-label">{{('EventDate')}}
                                         </label>
@@ -315,5 +346,28 @@
         </div>
     </section>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+   $(document).ready(function () {
+      $('#country').change(function () {
+         var countryId = $(this).val();  
+        //  alert(countryId);       
+         $.ajax({
+            url: "{{ url('admin/get-regions')}}", 
+            method: 'POST',
+            data: { country_id : countryId, _token: "{{ csrf_token() }}"},
+            success: function (data) {
+            //    alert(data);
+               var regionDropdown = $('#region');
+               regionDropdown.empty(); 
+               regionDropdown = $('#region').html('<option value="">Select Region</option>'); 
+               $.each(data, function (key, value) {
+                  regionDropdown.append($('<option value="">Select Region</option>').attr('value', key).text(value));
+               });
+            }
+         });
+      });
+   });
+</script>
 @endsection
 
