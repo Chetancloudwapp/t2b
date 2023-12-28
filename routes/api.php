@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\NewsApiController;
 use App\Http\Controllers\Api\OfferApiController;
 use App\Http\Controllers\Api\PhotosApiController;
+use App\Http\Controllers\Api\InvestmentApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +65,12 @@ Route::group(['middleware'=>['auth:api']], function () {
     // photos
     Route::post('/photos-listing', [PhotosApiController::class, 'photosListing']);
     Route::post('/photos-detail', [PhotosApiController::class, 'photosDetail']);
+
+    // investment
+    Route::post('/create-investment', [InvestmentApiController::class, 'createInvestment']);
+    Route::get('/all-investment-listing', [InvestmentApiController::class, 'allInvestmentListing']);
+    Route::get('/all-investment-detail', [InvestmentApiController::class, 'allinvestmentDetail']);
+    Route::post('/edit-investment', [InvestmentApiController::class , 'editInvestment']);
 
 });
 

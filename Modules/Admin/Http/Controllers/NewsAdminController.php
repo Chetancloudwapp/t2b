@@ -98,8 +98,6 @@ class NewsAdminController extends Controller
                 $imageName = "";
             }
             $news->banner_image = $imageName;
-            $news->lat = $data['latitude'];
-            $news->long = $data['longitude'];
             $news->status = $data['status'];
             // echo "<pre>"; print_r($news->toArray()); die;
 
@@ -210,8 +208,6 @@ class NewsAdminController extends Controller
                 $imageName = "";
             }
             $news->banner_image = $imageName;
-            $news->lat = $data['latitude'];
-            $news->long = $data['longitude'];
             $news->status = $data['status'];
             // echo "<pre>"; print_r($news->toArray()); die;
 

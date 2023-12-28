@@ -100,8 +100,6 @@ class NewsApiController extends Controller
             $get_news_data['title'] = $get_news->title;
             $get_news_data['description'] = $get_news->description;
             $get_news_data['banner_image'] = asset('uploads/news/bannerImage/'.$get_news->banner_image);
-            $get_news_data['lat'] = $get_news->lat;
-            $get_news_data['long'] = $get_news->long;
             $get_news_data['gallery'] = $gallery;
             
             $output['data'] = $get_news_data;

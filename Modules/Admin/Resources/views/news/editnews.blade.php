@@ -270,35 +270,7 @@
                                             @endforeach
                                         </ul>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group mb-3 {{ $errors->has('latitude') ? 'has-danger' : '' }}">
-                                        <label class="col-form-label">{{('Latitude')}}</label>
-                                        <input
-                                            class="form-control {{ $errors->has('latitude') ? 'form-control-danger' : '' }}"
-                                            name="latitude" type="text"
-                                            value="{{ $news['lat'] }}" placeholder="Enter Latitude"> 
-                                        @error('latitude')
-                                            <div class="col-form-alert-label">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>                            
-                                <div class="col-md-6">
-                                    <div class="form-group mb-3 {{ $errors->has('longitude') ? 'has-danger' : '' }}">
-                                        <label class="col-form-label">{{('Longitude')}}</label>
-                                        <input
-                                            class="form-control {{ $errors->has('longitude') ? 'form-control-danger' : '' }}"
-                                            name="longitude" type="text"
-                                            value="{{ $news['long'] }}" placeholder="Enter longitude"> 
-                                        @error('longitude')
-                                            <div class="col-form-alert-label">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>                            
+                                </div>                           
                                 <div class="col-md-6">
                                     <div class="form-group mb-3 {{ $errors->has('status') ? 'has-danger' : '' }}">
                                         <label class="col-form-label">Status</label>

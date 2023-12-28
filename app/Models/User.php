@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use App\Models\Investment;
 
 class User extends Authenticatable
 {
@@ -42,4 +43,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed','id'=>'string'
     ];
+
+    // public function getuser(){
+    //     return $this->hasMany('App\Models\investment');
+    // }
 }

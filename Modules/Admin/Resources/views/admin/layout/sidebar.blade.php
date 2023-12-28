@@ -55,14 +55,14 @@
                         </li> --}}
                     </ul>
                 </li>
-                <li class="nav-item"> 
+                {{-- <li class="nav-item"> 
                     <a href="{{ url('admin/language')}}" class="nav-link {{ Request::is('admin/language') || Request::is('admin/language/add') || Request::is('admin/language/edit/{id}') ? 'active' : ''}}"> <i class="fa-solid fa-language"></i>&nbsp;&nbsp;
                         <p>Languages</p>
                     </a> 
-                </li>
+                </li> --}}
                 <li class="nav-item"> 
                     <a href="{{ url('admin/user')}}" class="nav-link {{ Request::is('admin/user') || Request::is('admin/user/add') || Request::is('admin/user/edit/{id}') ? 'active' : ''}}"> <i class="fa-solid fa-user"></i>&nbsp;&nbsp;
-                        <p>User</p>
+                        <p>Members</p>
                     </a> 
                 </li>
                 <li class="nav-item"> 
@@ -78,6 +78,16 @@
                 <li class="nav-item"> 
                     <a href="{{ url('admin/photos')}}" class="nav-link {{ Request::is('admin/photos') || Request::is('admin/photos/add') || Request::is('admin/photos/edit/{id}') ? 'active' : ''}}"><i class="fa-solid fa-image"></i>&nbsp;&nbsp;
                         <p>Photos</p>
+                    </a> 
+                </li>
+                <li class="nav-item"> 
+                    <a href="{{ url('admin/offers')}}" class="nav-link {{ Request::is('admin/offers') || Request::is('admin/offers/edit/{id}') ? 'active' : ''}}"><i class="fa-solid fa-envelope"></i>&nbsp;&nbsp;
+                        <p>Offers</p>
+                    </a> 
+                </li>
+                <li class="nav-item"> 
+                    <a href="{{ url('admin/investment')}}" class="nav-link {{ Request::is('admin/investment') || Request::is('admin/investment/add') || Request::is('admin/investment/edit/{id}') ? 'active' : ''}}"><i class="fa-solid fa-sack-dollar"></i>&nbsp;&nbsp;
+                        <p>Investment</p>
                     </a> 
                 </li>
                 <li class="nav-item"> 

@@ -31,7 +31,7 @@
                               </div>
                             @endif
                             <h3 class="card-title nofloat"> <span>{{$common['title']}}</span>
-                            	<span> <a href="{{ url('admin/user/add') }}"> <button type="button" class="btn btn-block btn-primary"><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;Add Users</button> </a> </span>
+                            	{{-- <span> <a href="{{ url('admin/user/add') }}"> <button type="button" class="btn btn-block btn-primary"><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;Add Users</button> </a> </span> --}}
                             </h3>
                         </div>
                         <div class="card-body">
@@ -40,41 +40,26 @@
                                     <tr>
                                         <th>S.No.</th>
                                         <th>Image</th>
-                                        <th>Name</th>
-                                        <th>email</th>
-                                        <th>Phone Number</th>
-                                        <th>Status</th>
+                                        <th>Email</th>
+                                        <th>Offer Detail</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($users as $key => $user)
+                                    @foreach($get_offers as $key => $offer)
                                         <tr>
                                             <td>{{ ++$key }}</td>
                                             <td>
                                                 <img class="tbl-img-css rounded-circle" width="50px"
-                                                src="{{ $user['image'] !='' ? asset('uploads/userimage/'. $user['image']) : asset('uploads/placeholder/default_user.png') }}">
+                                                src="{{ $offer['image'] !='' ? asset('uploads/offers/'. $offer['image']) : asset('uploads/placeholder/default_user.png') }}">
                                             </td>
-                                            <td>{{ $user['name'] }}</td>
-                                            <td>{{ $user['email'] }}</td>
-                                            <td>{{ $user['country_code'] }}-{{ $user['phone_number'] }}</td>
-                                            <td>
-                                                {{-- @if($user['status'] == 'Active')
-                                                   <span class="badge badge-pill badge-success">{{ $user['status']}}</span>
-                                                @else
-                                                   <span class="badge badge-pill badge-danger">{{ $user['status'] }}</span>
-                                                @endif --}}
-
-                                                <select class="form-control" onchange="changeStatus(this.value, {{ $user['id'] }})">
-                                                    <option value="Active" {{ $user['status'] == 'Active' ? 'selected' : '' }}>Active</option>
-                                                    <option value="Pending" {{ $user['status'] == 'Pending' ? 'selected' : '' }}>Pending</option>
-                                                    <option value="Reject" {{ $user['status'] == 'Reject' ? 'selected' : '' }}>Reject</option>
-                                                </select>
-                                            </td>
+                                            <td>{{ $offer['contact_email'] }}</td>
+                                            <td>{{ $offer['offer_detail'] }}</td>
                                             <td class="text-center">
                                                 {{-- <a href="javascript:;"> <i class="fa-solid fa-eye"></i> </a> --}}
-                                                <a href="{{ url('admin/user/edit/'. encrypt($user['id'])) }}"> <i class="fa-solid fa-pencil"></i></a>
-                                                <a href="javascript:void(0)" record="user/delete" record_id="{{ $user['id'] }}" class="confirmDelete" name="user" title="Delete user Page"> <i class="fa-solid fa-trash" ></i> </a>
+                                                <a href="javascript:;void"> <i class="fa-solid fa-pencil"></i></a>
+                                                {{-- <a href="{{ url('admin/offers/edit/'. encrypt($offer['id'])) }}"> <i class="fa-solid fa-pencil"></i></a> --}}
+                                                <a href="javascript:void(0)" record="offers/delete" record_id="{{ $offer['id'] }}" class="confirmDelete" name="offer" title="Delete offer Page"> <i class="fa-solid fa-trash"></i> </a>
                                             </td>
                                         </tr>
                                     @endforeach
