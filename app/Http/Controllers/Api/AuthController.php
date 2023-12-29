@@ -106,6 +106,19 @@ class AuthController extends Controller
                 DB::table('oauth_access_tokens')
                 ->where('user_id', $user->id)
                 ->update(['fcm_token' => $userData['fcm_token'], 'device_id' => $userData['device_id'], 'device_type' => $userData['device_type']]);
+
+                // get country
+                $get_country = Country::select('id','name')->where('id', $user->country_id)->first();
+                if(!empty($get_country)){
+                    $user['country_id'] = $get_country->name;
+                }
+                
+                // get region
+                $get_region = Region::select('id','name')->where('id', $user->region)->first();
+                if(!empty($get_region)){
+                    $user['region'] = $get_region->name;
+                }
+                
                 $user['token'] = $authorizationToken;
 
                 /* -- typecast data -- */
@@ -155,6 +168,18 @@ class AuthController extends Controller
                 $token = $user->createToken('t2b')->accessToken;
                 $user['token'] = $token;
                 $user['image'] = url('uploads/userimage/'.$user['image']);
+
+                // get country
+                $get_country = Country::select('id','name')->where('id', $user->country_id)->first();
+                if(!empty($get_country)){
+                    $user['country_id'] = $get_country->name;
+                }
+                
+                // get region
+                $get_region = Region::select('id','name')->where('id', $user->region)->first();
+                if(!empty($get_region)){
+                    $user['region'] = $get_region->name;
+                }
     
                 // casting all the data 
                 $user = $this->allString($user);

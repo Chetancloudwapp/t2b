@@ -151,9 +151,15 @@
                                         <label class="col-form-label">Status</label>
                                         <select id="status" name="status" class="form-control stock">
                                             <option value="Active">Active</option>
-                                            <option value="Pending">Pending</option>
-                                            <option value="Reject">Reject</option>
+                                            <option value="Pending"
+                                                {{ $user['status'] == 'Pending' ? 'selected' : ''}}>Pending
+                                            </option>
+                                            <option value="Reject"
+                                               {{ $user['status'] == 'Reject' ? 'selected' : ''}}>Reject
+                                            </option>
                                         </select>
+
+                                        
                                         @error('status')
                                             <div class="col-form-alert-label">
                                                 {{ $message }}

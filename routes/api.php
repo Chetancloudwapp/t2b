@@ -70,8 +70,10 @@ Route::group(['middleware'=>['auth:api']], function () {
     Route::post('/create-investment', [InvestmentApiController::class, 'createInvestment']);
     Route::get('/all-investment-listing', [InvestmentApiController::class, 'allInvestmentListing']);
     Route::get('/all-investment-detail', [InvestmentApiController::class, 'allinvestmentDetail']);
-    Route::post('/edit-investment', [InvestmentApiController::class , 'editInvestment']);
-
+    Route::post('/edit-investment/{id?}', [InvestmentApiController::class , 'editInvestment']);
+    Route::delete('/delete-investment', [InvestmentApiController::class, 'deleteInvestment']);
+    Route::post('/investment-request', [InvestmentApiController::class, 'investmentRequest']);
+    Route::get('/my-investment-detail', [InvestmentApiController::class, 'myInvestmentDetail']);
 });
 
 

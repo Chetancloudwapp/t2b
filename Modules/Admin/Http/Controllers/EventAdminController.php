@@ -66,21 +66,23 @@ class EventAdminController extends Controller
             ];
 
             $customValidation = [
-                "en_name.required"      => "The name field is required",
-                "en_description"        => "The description field is required",
-                "it_name.required"      => "The name field is required",
-                "it_description"        => "The description field is required",
-                "de_name.required"      => "The name field is required",
-                "de_description"        => "The description field is required",
-                "fr_name.required"      => "The name field is required",
-                "fr_description"        => "The description field is required",
+                "en_name.required"      => "English lang title is required",
+                "en_description"        => "English lang description field is required",
+                "it_name.required"      => "Italian lang title is required",
+                "it_description"        => "Italian lang description field is required",
+                "de_name.required"      => "German lang title is required",
+                "de_description"        => "German lang description field is required",
+                "fr_name.required"      => "French lang title is required",
+                "fr_description"        => "French lang description field is required",
                 "banner_image.required" => "The image field is required",
             ];
 
-            $validator = Validator::make($request->all(), $rules, $customValidation);
-            if($validator->fails()){
-                return back()->withErrors($validator)->withInput();
-            }
+            $this->validate($request, $rules, $customValidation);
+
+            // $validator = Validator::make($request->all(), $rules, $customValidation);
+            // if($validator->fails()){
+            //     return back()->withErrors($validator)->withInput();
+            // }
 
             // Upload featured Image
             if($request->hasFile('banner_image')){

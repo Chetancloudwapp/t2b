@@ -18,7 +18,7 @@ class UserController extends Controller
     {
         $common = [];
         $common['title'] = "Users";
-        $users = User::where('status','Active')->orderBy('id', 'desc')->get();
+        $users = User::orderBy('id', 'desc')->get();
         return view('admin::users.index')->with(compact('common','users'));
     }
 

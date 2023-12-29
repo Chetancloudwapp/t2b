@@ -40,7 +40,7 @@
                                     <tr>
                                         <th>S.No.</th>
                                         <th>Image</th>
-                                        <th>Name</th>
+                                        <th>Title</th>
                                         <th>Status</th>
                                         <th class="text-center">Action</th>
                                     </tr>

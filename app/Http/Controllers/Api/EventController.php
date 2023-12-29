@@ -67,6 +67,12 @@ class EventController extends Controller
                 $eventArr['banner_image'] = asset('uploads/events/bannerImage/'.$value['banner_image']);
                 $eventArr['description'] = $value->description;
                 $eventArr['eventdate'] = date("d-M-Y",strtotime($value['eventdate']));
+
+                // get event feedback
+                $get_event_feedback = EventFeedback::where('event_id', $value['id'])->first();
+                if($get_event_feedback){
+                    $eventArr['event_feedback'] = $get_event_feedback->response;
+                }
               
                 // get gallery images
                 $gallery = [];
