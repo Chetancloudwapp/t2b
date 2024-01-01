@@ -33,9 +33,10 @@ Route::prefix('admin')->group(function() {
 
         // user route
         Route::match(['get','post'], '/user', 'UserController@index');
-        Route::match(['get', 'post'], '/user/add', 'UserController@addUser');
-        Route::match(['get', 'post'], '/user/edit/{id}', 'UserController@editUser');
-        Route::match(['get', 'post'], '/user/delete/{id?}', 'UserController@destroy');
+        Route::match(['get','post'], '/user/add', 'UserController@addUser');
+        Route::match(['get','post'], '/user/edit/{id}', 'UserController@editUser');
+        Route::match(['get','post'], '/user/view/{id}', 'UserController@viewUser');
+        Route::match(['get','post'], '/user/delete/{id?}', 'UserController@destroy');
 
         // get regions on behalf of countries 
         Route::post('/get-regions', 'UserController@getRegions');

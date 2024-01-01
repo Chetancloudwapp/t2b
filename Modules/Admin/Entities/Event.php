@@ -37,5 +37,9 @@ class Event extends Model
         return $this->hasMany('Modules\Admin\Entities\EventImage')->select('event_id','images','id');
 
     }
+
+    // public function Events(){
+    //     return $this->hasMany('App\Models\EventFeedback');
+    // }
     
 }

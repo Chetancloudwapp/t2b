@@ -54,7 +54,7 @@ class OfferApiController extends Controller
             "offer_detail"   => "required",
             "country_id"     => "required|numeric",
             "region"         => "required|numeric",
-            // "images"      => "required|mimes:jpeg,jpg,png,gif",
+            "image"          => "required|mimes:jpeg,jpg,png,gif",
         ];
 
         $validator = Validator::make($request->all(), $rules);

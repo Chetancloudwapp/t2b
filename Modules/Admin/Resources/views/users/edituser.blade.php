@@ -71,7 +71,6 @@
                                             <option value="">Select Country</option>
                                             @foreach($get_countries as $country)
                                                 <option value="{{ $country['id']}}" {{ $country['id'] == $user['country_id'] ? 'selected' : ''}}>{{ $country['name']}}</option>
-                                                {{-- <option value="{{ $country['id']}}">{{ $country['name']}}</option> --}}
                                             @endforeach
                                         </select>
                                         @error('country')
@@ -84,9 +83,10 @@
                                 <div class="col-md-6">
                                     <div class="form-group mb-3 {{ $errors->has('region') ? 'has-danger' : '' }}">
                                         <label class="col-form-label">Region</label>
-                                        <select class="form-control" name="region" id="region">
-                                            <option value="0">Select region</option>                                         
-                                                
+                                        <select class="form-control" name="region" id="region">                                 
+                                            @foreach($get_regions as $value)
+                                               <option value="{{ $value['id'] }}" {{ $value['id'] == $user['region'] ? 'selected' : ''}}>{{ $value['name']}}</option>
+                                            @endforeach
                                         </select>
                                         @error('region')
                                               <div class="col-form-alert-label">
@@ -158,8 +158,6 @@
                                                {{ $user['status'] == 'Reject' ? 'selected' : ''}}>Reject
                                             </option>
                                         </select>
-
-                                        
                                         @error('status')
                                             <div class="col-form-alert-label">
                                                 {{ $message }}
@@ -202,7 +200,6 @@
             method: 'POST',
             data: { country_id : countryId, _token: "{{ csrf_token() }}"},
             success: function (data) {
-            //    alert(data);
                var regionDropdown = $('#region');
                regionDropdown.empty(); 
                regionDropdown = $('#region').html('<option value="">Select Region</option>'); 

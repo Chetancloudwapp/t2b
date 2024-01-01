@@ -165,7 +165,9 @@ class EventAdminController extends Controller
         $common['title']  = "Events";
         $common['heading_title'] = "Edit Events";
         $common['button'] = "Update";
-        $events = Event::with('galleryimages')->find($id);
+        $events = Event::with(['galleryimages'])->find($id);
+         echo "<pre>"; print_r($events->toArray()); die;
+
         $message = "Events Updated Successfully!";
 
         $get_countries = Country::where('is_show', '1')->get();

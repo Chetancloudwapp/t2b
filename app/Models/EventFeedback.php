@@ -11,4 +11,9 @@ class EventFeedback extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'event_feedbacks';
+
+    public function Events(){
+        return $this->belongsTo('Modules\Admin\Entities\Event','event_id','id');
+    }
+
 }

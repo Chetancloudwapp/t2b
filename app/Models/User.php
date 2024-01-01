@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
-use App\Models\Investment;
 
 class User extends Authenticatable
 {
@@ -44,7 +43,27 @@ class User extends Authenticatable
         'password' => 'hashed','id'=>'string'
     ];
 
-    // public function getuser(){
-    //     return $this->hasMany('App\Models\investment');
-    // }
+    // get coutry name
+    public function country(){
+        return $this->hasOne('Modules\Admin\Entities\Country', 'id', 'country_id')->select('id','name');
+    }
+
+    // get region name
+    public function get_region(){
+        return $this->hasOne('Modules\Admin\Entities\Region', 'id', 'region')->select('id','name');
+    }
+
+    // get offers
+    public function Offers(){
+        return $this->hasMany('App\Models\Offer');
+    }
+
+    // get events
+    public function Eventfeedback(){
+        return $this->hasMany('App\Models\EventFeedback');
+    }
+
+    public function Investments(){
+        return $this->hasMany('App\Models\Investment');
+    }
 }

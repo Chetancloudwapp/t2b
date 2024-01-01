@@ -23,12 +23,13 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title nofloat"> <span>{{ $common['heading_title']}} </span>
-                            <a href="{{ url('admin/region')}}">
-                                <button onClick="back();"
-                                    class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger"
-                                    data-modal="modal-13" style="float: right"> <i class="fa-solid fa-backward"></i>&nbsp;&nbsp; Back
-                                </button>
-                            </a></h3>
+                                <a href="{{ url('admin/region')}}">
+                                    <button onClick="back();"
+                                        class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger"
+                                        data-modal="modal-13" style="float: right"> <i class="fa-solid fa-backward"></i>&nbsp;&nbsp; Back
+                                    </button>
+                                </a>
+                            </h3>
                         </div>
                         <div class="card-body">
                             <form action="{{ url('admin/region/add') }}" 

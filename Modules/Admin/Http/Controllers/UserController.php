@@ -7,8 +7,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\Admin\Entities\Country;
-use Modules\Admin\Entities\Region;
-use App\Models\User;
+use Modules\Admin\Entities\{Region,Event};
+use App\Models\{User,EventFeedback};
 use Validator;
 use Hash;
 
@@ -86,7 +86,7 @@ class UserController extends Controller
         $user = User::find($id);
         $message = "User Updated Successfully!";
         $get_countries = Country::where('is_show', '1')->get();
-
+         $get_regions = Region::where('country',$user->country_id)->get();
         if($request->isMethod('post')){
             $data = $request->all();
             $rules = [
@@ -121,7 +121,22 @@ class UserController extends Controller
             $user->save();
             return redirect('admin/user')->with('success_message', $message);
         }
-        return view('admin::users.edituser')->with(compact('common','user','get_countries'));
+        return view('admin::users.edituser')->with(compact('common','user','get_regions','get_countries'));
+    }
+
+    public function viewUser(Request $request, $id)
+    {
+        $common = [];
+        $common['title'] = "Member Details";
+         
+        $get_users = User::with(['country','get_region','Offers','Eventfeedback.Events', 'Investments'])->find($id);
+        // $get_users = User::with(['country','get_region','Offers'])->find($id);
+        // $EventsFeedback = EventFeedback::with('Events')->where('user_id',$get_users['id'])->get();
+        // echo "<pre>"; print_r($EventsFeedback->toArray()); die;
+        // $Events = Event::whereIn('id',$EventsFeedback->pluck('id'))->get(); 
+        // echo "<pre>"; print_r($get_users->toArray()); die;
+        // dd($get_users);
+        return view('admin::users.viewuser')->with(compact('get_users'));
     }
 
     /* -- get region on behalf of country -- */

@@ -72,7 +72,7 @@
                                                 </select>
                                             </td>
                                             <td class="text-center">
-                                                {{-- <a href="javascript:;"> <i class="fa-solid fa-eye"></i> </a> --}}
+                                                <a href="{{ url('admin/user/view/'. $user['id'])}}"> <i class="fa-solid fa-eye"></i> </a>
                                                 <a href="{{ url('admin/user/edit/'. encrypt($user['id'])) }}"> <i class="fa-solid fa-pencil"></i></a>
                                                 <a href="javascript:void(0)" record="user/delete" record_id="{{ $user['id'] }}" class="confirmDelete" name="user" title="Delete user Page"> <i class="fa-solid fa-trash" ></i> </a>
                                             </td>
