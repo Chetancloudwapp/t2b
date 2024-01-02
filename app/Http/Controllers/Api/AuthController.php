@@ -11,6 +11,9 @@ use Illuminate\Http\Response;
 use Modules\Admin\Entities\Language;
 use Modules\Admin\Entities\Country;
 use Modules\Admin\Entities\Region;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ForgotPasswordMail;
+use App\Models\Banner;
 use App\Models\User;
 use Validator;
 use Hash;
@@ -357,8 +360,8 @@ class AuthController extends Controller
         $output['message'] = "Something Went Wrong";
 
         $rules = [
-            "old_password" => "required",
-            "new_password" => "required|min:6|regex:/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/",
+            "old_password"     => "required",
+            "new_password"     => "required|min:6|regex:/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/",
             "confirm_password" => "required|same:new_password",
         ];
 
@@ -410,5 +413,131 @@ class AuthController extends Controller
             'status_code' => 200,
             'message' => "Account Deleted Successfully!."
         ],200);
+    }
+
+    public function Bannerdetails(Request $request)
+    {
+        $output = [];
+        $output['status'] = false;
+        $output['status_code'] = 422;
+        $output['message']  = "Something Went Wrong!";
+        
+        $rules = [
+            'title' => 'required',
+            'description' => 'required',
+            'image'  => 'required|mimes:jpg,jpeg,png,gif',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails()){
+            return response()->json([
+                'status' => false,
+                'message' => $validator->errors()->first(),
+            ],422);
+        }
+
+        $get_data = new Banner();
+
+        if($request->has('image')){
+            $image = $request->file('image');
+            $name = time(). "." .$image->getClientOriginalExtension();
+            $path = public_path('uploads/bannerImages/');
+            $image->move($path, $name);
+            $get_data->image = $name;
+        }
+        $get_data->title = $request->title;
+        $get_data->description = $request->description;
+        $get_data->save();
+        $output['status'] = true;
+        $output['status_code'] = 200;
+        $output['message'] = "Banner Details Sent Successfully!";
+        return json_encode($output);
+    }
+
+    // forget password
+    public function ForgetPassword(Request $request)
+    {
+        $rules = [
+            'email' => 'required|email'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails()){
+            return response()->json([
+                'status' => false,
+                'message' => $validator->errors()->first(),
+            ],422);
+        }
+
+        $email = $request->email;
+        $user = User::select('id','email','status')->where('email', $email)->where('status','Active')->first();
+        if(!empty($user)){
+            // generate random token
+            $token = rand(100000, 999999);
+            // return $token;
+
+            DB::table('password_reset_tokens')->insert([
+                'email' => $email,
+                'token' => $token
+            ]);
+
+            $verificationUrl = URL::temporarySignedRoute(
+                'verification.verify',
+                now()->addMinutes(60),
+                [
+                    'id' => $user->id, // Pass the user's ID
+                    'hash' => sha1($user->email), // Generate a hash for email verification (this is just an example, you can use a different hash)
+                ]
+            );
+
+            // send mail to user
+            Mail::to($request->email)->send(new ForgotPasswordMail($token));
+            return response()->json([
+                'status' => true,
+                'message' => 'Password reset email sent successfully',
+            ],200);
+        }else{
+            return response()->json([
+                'status' => false,
+                'status_code' => 422,
+                'message' => "Email is invalid",
+            ],422);
+        };
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $rules = [
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:6|confirmed'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails()){
+            return response()->json([
+                'status' => false,
+                'message' => $validator->errors()->first(),
+            ],422);
+        }
+
+        $get_data = DB::table('password_reset_tokens')->where(['email'=>$request->email, 'token'=>$request->token])->first();
+        if(!empty($get_data)){
+          $user =  User::where('email', $request->email)->update(['password' => Hash::make($request->password)]);
+
+          DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+          return response()->json([
+            'status' => true,
+            'status_code' => 200,
+            'message' => 'Password Change Successfully!',
+          ],200);
+        }else{
+            return response()->json([
+                'status' => false,
+                'status_code' => 422,
+                'message' => 'email or token is incorrect.',
+            ],422);
+        }
+
     }
 }

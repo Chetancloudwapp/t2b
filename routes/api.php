@@ -28,6 +28,13 @@ use App\Http\Controllers\Api\InvestmentApiController;
 // Unauthorized route
 Route::post('/register_user', [AuthController::class, 'RegisterUser']);
 Route::post('/login_user', [AuthController::class, 'LoginUser']);
+Route::post('/forget-password', [AuthController::class, 'ForgetPassword']);
+Route::post('/reset-password', [AuthController::class, 'resetPassword']);
+
+Route::post('/forget-password', [AuthController::class, 'ForgetPassword']);
+Route::post('/reset-password', [AuthController::class, 'resetPassword']);
+
+// Route::post('/email/verify/{id}/{hash}', [AuthController::class, ''])
 
 // country listing
 Route::get('/country_listing', [CommonController::class, 'getCountry']);
@@ -38,6 +45,7 @@ Route::post('/get_regions', [CommonController::class, 'getRegions']);
 // language listing
 Route::get('/language', [CommonController::class, 'getLanguages']);
 
+
 Route::group(['middleware'=>['auth:api']], function () {
     
     // Authorized route
@@ -47,6 +55,8 @@ Route::group(['middleware'=>['auth:api']], function () {
     Route::post('/user_profile_update', [AuthController::class,'UserProfileUpdate']);
     Route::post('/change_password', [AuthController::class, 'changePassword']);
     Route::delete('/delete_account', [AuthController::class, 'deleteAccount']);
+
+    Route::post('/banner_details', [AuthController::class, 'Bannerdetails']);
 
     // Events route
     Route::get('/event_listing', [EventController::class, 'eventListing']);

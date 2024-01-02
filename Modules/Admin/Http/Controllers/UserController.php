@@ -86,7 +86,8 @@ class UserController extends Controller
         $user = User::find($id);
         $message = "User Updated Successfully!";
         $get_countries = Country::where('is_show', '1')->get();
-         $get_regions = Region::where('country',$user->country_id)->get();
+        $get_regions = Region::where('country',$user->country_id)->get();
+        
         if($request->isMethod('post')){
             $data = $request->all();
             $rules = [
