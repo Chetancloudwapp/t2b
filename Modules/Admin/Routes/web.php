@@ -83,7 +83,8 @@ Route::prefix('admin')->group(function() {
         Route::match(['get','post'], '/photos/delete/{id}', 'PhotosController@destroy');
         Route::match(['get', 'post'], '/photos/deleteImage/{id}', 'PhotosController@deletePhotosGallery');
 
-
+        Route::match(['get','post'], '/banner', 'BannerController@index');
+        Route::match(['get','post'], '/banner/add', 'BannerController@addBanner');
     });
 });
 

@@ -91,6 +91,11 @@
                     </a> 
                 </li>
                 <li class="nav-item"> 
+                    <a href="{{ url('admin/banner')}}" class="nav-link {{ Request::is('admin/banner') || Request::is('admin/banner/add') ? 'active' : ''}}"><i class="fa-solid fa-image"></i>&nbsp;&nbsp;
+                        <p>Banners</p>
+                    </a> 
+                </li>
+                <li class="nav-item"> 
                     <a href="{{ url('admin/countries')}}" class="nav-link {{ Request::is('admin/countries') ? 'active' : ''}}"> <i class="fa-solid fa-globe"></i>&nbsp;&nbsp;
                         <p>Countries</p>
                     </a> 

@@ -31,9 +31,6 @@ Route::post('/login_user', [AuthController::class, 'LoginUser']);
 Route::post('/forget-password', [AuthController::class, 'ForgetPassword']);
 Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 
-Route::post('/forget-password', [AuthController::class, 'ForgetPassword']);
-Route::post('/reset-password', [AuthController::class, 'resetPassword']);
-
 // Route::post('/email/verify/{id}/{hash}', [AuthController::class, ''])
 
 // country listing
