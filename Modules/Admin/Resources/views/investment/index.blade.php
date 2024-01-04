@@ -48,14 +48,12 @@
                                     @foreach($investments as $key => $investment)
                                         <tr>
                                             <td>{{ ++$key }}</td>
-                                            <td>{{ $investment['user_id'] }}</td>
-                                            <td>{{ $investment['investment_title'] }}</td>
-                                            {{-- <td>
+                                            <td>
                                                 @php
-                                                  if($investments['country']){
-                                                    $get_country = Modules\Admin\Entities\Country::select('id','name')->where(['id' => $investments['country']])->where('is_show', '1')->first();
-                                                    if($get_country){
-                                                        echo $get_country->name;
+                                                  if($investment['user_id']){
+                                                    $get_user = App\Models\User::select('id','name')->where(['id' => $investment['user_id']])->where('status', 'Active')->first();
+                                                    if($get_user){
+                                                        echo $get_user->name;
                                                     }else{
                                                         echo "-";
                                                     }
@@ -63,11 +61,12 @@
                                                     echo "-";
                                                   }
                                                 @endphp
-                                            </td> --}}
+                                            </td>
+                                            <td>{{ $investment['investment_title'] }}</td>
                                             <td class="text-center">
-                                                {{-- <a href="javascript:;"> <i class="fa-solid fa-eye"></i> </a> --}}
-                                                <a href="{{ url('admin/investment/edit/'.encrypt($investment['id'])) }}"> <i class="fa-solid fa-pencil"></i></a>
-                                                <a href="javascript:void(0)" record="investment/delete" record_id="{{ encrypt($investment['id']) }}" class="confirmDelete" name="investments" title="Delete investments Page"> <i class="fa-solid fa-trash" ></i> </a>
+                                                <a href="{{ url('admin/investment/view/'. $investment['id'])}}"> <i class="fa-solid fa-eye"></i> </a>
+                                                {{-- <a href="{{ url('admin/investment/edit/'.encrypt($investment['id'])) }}"> <i class="fa-solid fa-pencil"></i></a> --}}
+                                                {{-- <a href="javascript:void(0)" record="investment/delete" record_id="{{ encrypt($investment['id']) }}" class="confirmDelete" name="investments" title="Delete investments Page"> <i class="fa-solid fa-trash" ></i> </a> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -101,7 +100,6 @@
                 'Your file has been deleted.',
                 'success'
                 )
-
                 // root = "{{ config('app.url') }}"
                 window.location.href = "/admin/"+record+"/"+record_id;
             }

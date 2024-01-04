@@ -40,8 +40,8 @@
                                     <tr>
                                         <th>S.No.</th>
                                         <th>Image</th>
+                                        <th>User</th>
                                         <th>Email</th>
-                                        <th>Offer Detail</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -53,8 +53,21 @@
                                                 <img class="tbl-img-css rounded-circle" width="50px"
                                                 src="{{ $offer['image'] !='' ? asset('uploads/offers/'. $offer['image']) : asset('uploads/placeholder/default_user.png') }}">
                                             </td>
+                                            <td>
+                                                @php
+                                                    if($offer['user_id']){
+                                                        $get_user = App\Models\User::select('id','name')->where(['id' => $offer->user_id])->where('status','active')->first();
+                                                        if($get_user){
+                                                            echo $get_user->name;
+                                                        }else{
+                                                            echo "-";
+                                                        }
+                                                    }else{
+                                                        echo "-";
+                                                    }
+                                                @endphp
+                                            </td>
                                             <td>{{ $offer['contact_email'] }}</td>
-                                            <td>{{ $offer['offer_detail'] }}</td>
                                             <td class="text-center">
                                                 {{-- <a href="javascript:;"> <i class="fa-solid fa-eye"></i> </a> --}}
                                                 <a href="javascript:;void"> <i class="fa-solid fa-pencil"></i></a>

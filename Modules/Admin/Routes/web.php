@@ -63,6 +63,9 @@ Route::prefix('admin')->group(function() {
         // investment
         Route::match(['get','post'], '/investment', 'InvestmentController@index');
         Route::match(['get','post'], '/investment/add', 'InvestmentController@addInvestments');
+        Route::match(['get','post'], '/investment/edit/{id}', 'InvestmentController@editInvestments');
+        Route::match(['get','post'], '/investment/view/{id}', 'InvestmentController@viewInvestments');
+        Route::match(['get','post'], '/investment/delete/{id}', 'InvestmentController@destroy');
         
         // News route
         Route::match(['get','post'], '/news', 'NewsAdminController@index');
